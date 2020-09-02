@@ -1,18 +1,19 @@
 package pl.coderslab.squash.User;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import pl.coderslab.squash.model.User;
-import pl.coderslab.squash.repository.UserRepository;
+import pl.coderslab.squash.validators.PassValidator;
 import pl.coderslab.squash.service.UserService;
+import pl.coderslab.squash.validators.UniqueMailValidator;
+import pl.coderslab.squash.validators.UniqueValidator;
 
 import javax.validation.Valid;
 
@@ -21,8 +22,15 @@ import javax.validation.Valid;
 @AllArgsConstructor
 
 public class UserController {
-
     private final UserService userService;
+    @InitBinder
+    public void initBinder(WebDataBinder binder)
+    {
+        binder.addValidators(new PassValidator());
+        binder.addValidators(new UniqueMailValidator(userService));
+        binder.addValidators(new UniqueValidator(userService));
+    }
+
 
     @GetMapping("/register")
     public ModelAndView home() {

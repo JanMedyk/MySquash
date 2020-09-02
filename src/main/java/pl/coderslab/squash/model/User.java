@@ -2,6 +2,7 @@ package pl.coderslab.squash.model;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -24,7 +25,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
+    @Column
     @NotEmpty
     @Email
 
@@ -32,16 +33,16 @@ public class User {
 @Size(min = 3, max = 20)
     private String name;
     @Size(min = 3, max = 20)
-    @Column(unique = true)
+    @Column
     private String userName;
     @Size(min = 3, max = 20)
     private String lastName;
     private int old;
     @NotEmpty
 //    @Length(min = 3, max = 20)
-    @Column(length = 200)
+//    @Column(length = 200)
 
-    @Size(min = 3, max = 20)
+//    @Size(min = 3, max = 20)
     private String password;
 
     @ManyToMany

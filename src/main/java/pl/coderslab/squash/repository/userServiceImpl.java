@@ -7,13 +7,14 @@ import pl.coderslab.squash.model.User;
 import pl.coderslab.squash.service.UserService;
 
 
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
 @Service
 public class userServiceImpl implements UserService {
+
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -30,8 +31,8 @@ public class userServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
-
+    public void saveUser(@Valid User user) {
+//        Pattern.compile("")
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         Role userRole=roleRepository.findByName("ROLE_USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
