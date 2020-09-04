@@ -1,27 +1,35 @@
 package pl.coderslab.squash.User;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import pl.coderslab.squash.User.register.OnRegistrationCompleteEvent;
+import pl.coderslab.squash.model.Token;
 import pl.coderslab.squash.model.User;
 import pl.coderslab.squash.validators.PassValidator;
 import pl.coderslab.squash.service.UserService;
 import pl.coderslab.squash.validators.UniqueMailValidator;
 import pl.coderslab.squash.validators.UniqueValidator;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Locale;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/user")
 @AllArgsConstructor
 
 public class UserController {
+    @Autowired
+    ApplicationEventPublisher eventPublisher;
+
     private final UserService userService;
     @InitBinder
     public void initBinder(WebDataBinder binder)
@@ -42,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid User user, BindingResult bindingResult) {
+    public String register(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
 
         if (bindingResult.hasErrors()) {
            return "user/register";
@@ -53,13 +61,33 @@ public class UserController {
 //            }
 //            User user2 = userService.findByMail(user.getMail());
 //            if (user2 != null) {
+
             userService.saveUser(user);
-            return "redirect:/";
+            String appUrl=request.getContextPath();
+            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user,request.getLocale(),appUrl));
+
+
+            return "redirect:/user/";
             }
 
 //        }
     }
-    @GetMapping("/users/all")
+    @RequestMapping("/registrationConfirm")
+
+    public String confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token)
+    {
+        Locale locale=request.getLocale();
+        Token token1=userService.getToken(token);
+//        if(token1==null)
+//        {
+//            String messeage=
+//        }
+        User user=token1.getUser();
+
+        userService.saveUserWithoutHas(user);
+        return "redirect:/";
+    }
+    @GetMapping("/all")
     public ModelAndView findAll(){
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.addObject("all",userService.findAll());

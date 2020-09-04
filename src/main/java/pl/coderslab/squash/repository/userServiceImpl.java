@@ -3,6 +3,7 @@ package pl.coderslab.squash.repository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.squash.model.Role;
+import pl.coderslab.squash.model.Token;
 import pl.coderslab.squash.model.User;
 import pl.coderslab.squash.service.UserService;
 
@@ -18,11 +19,13 @@ public class userServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final TokenRepository tokenRepository;
 
-    public userServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
+    public userServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder,TokenRepository tokenRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.tokenRepository=tokenRepository;
     }
 
     @Override
@@ -48,5 +51,26 @@ public class userServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public void createToken(User user, String token) {
+            Token myToken=new Token(token,user);
+            tokenRepository.save(myToken);
+
+    }
+
+    @Override
+    public Token getToken(String token) {
+        return tokenRepository.findByToken(token) ;
+
+    }
+
+    @Override
+    public void saveUserWithoutHas(User user) {
+        user.setEnabled(true);
+
+        userRepository.save(user);
+
     }
 }

@@ -15,8 +15,8 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 @Table(name = "User")
 @ToString
 @EqualsAndHashCode(of = "id")
@@ -54,5 +54,13 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+    @Column
+   private boolean enabled;
+    public User()
+    {
+        super();
+        this.enabled=false;
+
+    }
 
 }

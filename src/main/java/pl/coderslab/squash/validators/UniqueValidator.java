@@ -21,7 +21,7 @@ public class UniqueValidator implements Validator {
 
         User user = (User) o;
         if (userService.findByUserName(user.getUserName())!=null) {
-            errors.rejectValue("username","user.username","jest już użytkownik o takim username");
+            errors.rejectValue("userName","user.userName","jest już użytkownik o takim username");
         }
 
     }
