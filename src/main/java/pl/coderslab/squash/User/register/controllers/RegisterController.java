@@ -1,4 +1,4 @@
-package pl.coderslab.squash.User;
+package pl.coderslab.squash.User.register.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.coderslab.squash.User.register.OnRegistrationCompleteEvent;
 import pl.coderslab.squash.model.Token;
 import pl.coderslab.squash.model.User;
-import pl.coderslab.squash.validators.PassValidator;
-import pl.coderslab.squash.service.UserService;
-import pl.coderslab.squash.validators.UniqueMailValidator;
-import pl.coderslab.squash.validators.UniqueValidator;
+import pl.coderslab.squash.User.register.validators.PassValidator;
+import pl.coderslab.squash.User.service.UserService;
+import pl.coderslab.squash.User.register.validators.UniqueMailValidator;
+import pl.coderslab.squash.User.register.validators.UniqueValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -26,7 +26,7 @@ import java.util.Locale;
 @RequestMapping("/user")
 @AllArgsConstructor
 
-public class UserController {
+public class RegisterController {
     @Autowired
     ApplicationEventPublisher eventPublisher;
 
@@ -67,7 +67,7 @@ public class UserController {
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user,request.getLocale(),appUrl));
 
 
-            return "redirect:/user/";
+            return "redirect:/user/confirmEmail";
             }
 
 //        }
@@ -87,14 +87,15 @@ public class UserController {
         userService.saveUserWithoutHas(user);
         return "redirect:/";
     }
-    @GetMapping("/all")
-    public ModelAndView findAll(){
-        ModelAndView modelAndView=new ModelAndView();
-        modelAndView.addObject("all",userService.findAll());
-        modelAndView.setViewName("user/all");
-        return modelAndView;
-
-    }
+//    Wynieś do innego controllera
+//    @GetMapping("/all")
+//    public ModelAndView findAll(){
+//        ModelAndView modelAndView=new ModelAndView();
+//        modelAndView.addObject("all",userService.findAll());
+//        modelAndView.setViewName("user/all");
+//        return modelAndView;
+//
+//    }
 
 
 }

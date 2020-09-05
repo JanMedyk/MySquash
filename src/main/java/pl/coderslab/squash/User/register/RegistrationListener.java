@@ -1,15 +1,13 @@
 package pl.coderslab.squash.User.register;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.MessageSource;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import pl.coderslab.squash.model.User;
-import pl.coderslab.squash.service.UserService;
+import pl.coderslab.squash.User.service.UserService;
 
 import java.util.UUID;
 

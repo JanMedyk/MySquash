@@ -1,4 +1,4 @@
-package pl.coderslab.squash.repository;
+package pl.coderslab.squash.User.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import pl.coderslab.squash.model.Token;

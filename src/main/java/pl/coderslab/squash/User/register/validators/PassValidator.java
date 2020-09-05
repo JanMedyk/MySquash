@@ -1,4 +1,4 @@
-package pl.coderslab.squash.validators;
+package pl.coderslab.squash.User.register.validators;
 
 
 import org.springframework.validation.Errors;

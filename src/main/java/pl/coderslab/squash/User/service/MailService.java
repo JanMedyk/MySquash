@@ -1,4 +1,4 @@
-package pl.coderslab.squash.service;
+package pl.coderslab.squash.User.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;

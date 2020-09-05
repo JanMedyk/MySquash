@@ -1,11 +1,11 @@
-package pl.coderslab.squash.repository;
+package pl.coderslab.squash.User.repository;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.squash.model.Role;
 import pl.coderslab.squash.model.Token;
 import pl.coderslab.squash.model.User;
-import pl.coderslab.squash.service.UserService;
+import pl.coderslab.squash.User.service.UserService;
 
 
 import javax.validation.Valid;

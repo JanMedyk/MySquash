@@ -1,4 +1,4 @@
-package pl.coderslab.squash.User;
+package pl.coderslab.squash.User.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import pl.coderslab.squash.model.User;
-import pl.coderslab.squash.service.UserService;
+import pl.coderslab.squash.User.service.UserService;
 
 import java.util.HashSet;
 import java.util.Set;

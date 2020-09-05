@@ -1,4 +1,4 @@
-package pl.coderslab.squash.service;
+package pl.coderslab.squash.User.service;
 
 import pl.coderslab.squash.model.Token;
 import pl.coderslab.squash.model.User;
