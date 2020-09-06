@@ -7,9 +7,9 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.coderslab.squash.model.User;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("")
 public class LoginController {
-
+@RequestMapping("/login")
     public ModelAndView login()
     {
         ModelAndView modelAndView=new ModelAndView();

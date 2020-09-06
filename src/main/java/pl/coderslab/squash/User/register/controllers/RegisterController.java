@@ -67,10 +67,11 @@ public class RegisterController {
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user,request.getLocale(),appUrl));
 
 
-            return "redirect:/user/confirmEmail";
+            return "/user/confirmEmail";
             }
 
 //        }
+
     }
     @RequestMapping("/registrationConfirm")
 
@@ -85,17 +86,17 @@ public class RegisterController {
         User user=token1.getUser();
 
         userService.saveUserWithoutHas(user);
-        return "redirect:/";
+        return "user/registerConfirm";
     }
 //    Wynieś do innego controllera
-//    @GetMapping("/all")
-//    public ModelAndView findAll(){
-//        ModelAndView modelAndView=new ModelAndView();
-//        modelAndView.addObject("all",userService.findAll());
-//        modelAndView.setViewName("user/all");
-//        return modelAndView;
-//
-//    }
+    @GetMapping("/user/all")
+    public ModelAndView findAll(){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.addObject("all",userService.findAll());
+        modelAndView.setViewName("user/all");
+        return modelAndView;
+
+    }
 
 
 }
