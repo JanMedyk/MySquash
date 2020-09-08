@@ -22,5 +22,8 @@ public class MatchHistory {
     private LocalDateTime dateMatch;
     @ManyToMany(mappedBy = "matchHistories")
     private List<User> user=new ArrayList<>();
+    private Integer pktZawodnika1;
+    private Integer pktZawodnika2;
+
 
 }

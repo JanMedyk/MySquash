@@ -8,6 +8,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +40,8 @@ public class User {
     private String userName;
     @Size(min = 3, max = 20)
     private String lastName;
+    private LocalDate dateOfBirth;
+
     private int old;
     @NotEmpty
 //    @Length(min = 3, max = 20)
@@ -60,6 +65,7 @@ public class User {
     {
         super();
         this.enabled=false;
+        this.old= Period.between(dateOfBirth, LocalDate.now()).getYears();
 
     }
 

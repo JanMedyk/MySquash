@@ -6,6 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import pl.coderslab.squash.User.service.SpringDataUserDetailsService;
 
 @Configuration
@@ -26,19 +28,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/user/user/**").authenticated()
-//                .anyRequest().authenticated()
+                .antMatchers("/app/**").authenticated()
                 .and()
+
+
+//                .anyRequest().authenticated()
+
                 .formLogin()
                 .loginPage("/login")
                 .permitAll().failureUrl("/login?error=true")
-                .defaultSuccessUrl("/admin/home")
+                .defaultSuccessUrl("/app/home")
                 .usernameParameter("userName")
-                .passwordParameter(//
-                        // .anyRequest().authenticated()
-"password")
-        .and()
-        .logout().permitAll();
+                .passwordParameter("password")
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+        .logoutSuccessUrl("/")
+
+        .deleteCookies("JSESSIONID");
+//                .logout(logout ->logout
+//                        .permitAll()
+//                        .deleteCookies("JSESSIONID")
+//                        .addLogoutHandler(new SecurityContextLogoutHandler())
+//                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                        .logoutUrl("/logout")
+//                        .logoutSuccessUrl("/")
+//                );
+
 
 //                .authorizeRequests()
 //                .antMatchers("/")

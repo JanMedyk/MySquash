@@ -3,6 +3,8 @@ package pl.coderslab.squash.User.register.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -90,7 +92,7 @@ public class RegisterController {
     }
 //    Wynieś do innego controllera
     @GetMapping("/user/all")
-    public ModelAndView findAll(){
+    public ModelAndView findAll(@AuthenticationPrincipal UserDetails customUser){
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.addObject("all",userService.findAll());
         modelAndView.setViewName("user/all");

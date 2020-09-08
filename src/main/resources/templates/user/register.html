@@ -6,7 +6,11 @@
     <title>Home</title>
 </head>
 <body>
-<form action="#" th:action="@{/user/register}" th:object="${user}" method="post">
+<form action="#" th:action="@{/user/register}" th:object="${user}" method="post" th:id="msform">
+    <ul th:id="progressbar">
+        <
+
+    </ul>
     <p>UserName<input type="text" th:field="*{userName}"></p>
     <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
     <p>Imie<input type="text" th:field="*{name}"></p>
