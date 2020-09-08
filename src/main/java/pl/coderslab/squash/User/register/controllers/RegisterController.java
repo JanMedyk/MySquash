@@ -12,6 +12,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import pl.coderslab.squash.Sport.service.SportService;
 import pl.coderslab.squash.User.register.OnRegistrationCompleteEvent;
 import pl.coderslab.squash.model.Token;
 import pl.coderslab.squash.model.User;
@@ -19,9 +20,12 @@ import pl.coderslab.squash.User.register.validators.PassValidator;
 import pl.coderslab.squash.User.service.UserService;
 import pl.coderslab.squash.User.register.validators.UniqueMailValidator;
 import pl.coderslab.squash.User.register.validators.UniqueValidator;
+import pl.coderslab.squash.model.levelEnum;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Locale;
 
 @Controller
@@ -33,6 +37,9 @@ public class RegisterController {
     ApplicationEventPublisher eventPublisher;
 
     private final UserService userService;
+    private final SportService sportService;
+
+
     @InitBinder
     public void initBinder(WebDataBinder binder)
     {
@@ -46,6 +53,8 @@ public class RegisterController {
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", new User());
+        modelAndView.addObject("sport",sportService.findAll());
+        modelAndView.addObject("level", levelEnum.values());
 
         modelAndView.setViewName("user/register");
         return modelAndView;
@@ -53,7 +62,6 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String register(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
-
         if (bindingResult.hasErrors()) {
            return "user/register";
         } else {
@@ -63,6 +71,7 @@ public class RegisterController {
 //            }
 //            User user2 = userService.findByMail(user.getMail());
 //            if (user2 != null) {
+            user.setOld(Period.between(user.getDateOfBirth(), LocalDate.now()).getYears());
 
             userService.saveUser(user);
             String appUrl=request.getContextPath();

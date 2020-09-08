@@ -28,15 +28,15 @@ public class appController {
 
     }
 
-    @RequestMapping("/")
-    public ModelAndView appSearchEnemy(@AuthenticationPrincipal CurrentUser currentUser) {
-        User user = currentUser.getUser();
-        ModelAndView modelAndView=new ModelAndView();
-        modelAndView.addObject("users",userService.findAll());
-
-
-
-    }
+//    @RequestMapping("/")
+//    public ModelAndView appSearchEnemy(@AuthenticationPrincipal CurrentUser currentUser) {
+//        User user = currentUser.getUser();
+//        ModelAndView modelAndView=new ModelAndView();
+//        modelAndView.addObject("users",userService.findAll());
+//
+//
+//
+//    }
 
 
 }

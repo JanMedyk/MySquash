@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public class User {
     @Email
 
     private String mail;
-@Size(min = 3, max = 20)
+    @Size(min = 3, max = 20)
     private String name;
     @Size(min = 3, max = 20)
     @Column
@@ -41,6 +42,7 @@ public class User {
     @Size(min = 3, max = 20)
     private String lastName;
     private LocalDate dateOfBirth;
+    private String city;
 
     private int old;
     @NotEmpty
@@ -60,12 +62,12 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
     @Column
-   private boolean enabled;
-    public User()
-    {
+    private boolean enabled;
+
+    public User() {
         super();
-        this.enabled=false;
-        this.old= Period.between(dateOfBirth, LocalDate.now()).getYears();
+        this.enabled = false;
+        this.old = 0;
 
     }
 

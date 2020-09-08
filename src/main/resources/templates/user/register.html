@@ -1,28 +1,68 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+<!--    <link rel="stylesheet" th:href="@{/styles/register.css}">-->
+<!--    <script th:src="|${js}/register.js"></script>-->
+<!--    <script type="text/javascript" th:src="/js/register.js"></script>-->
 </head>
+
 <body>
 <form action="#" th:action="@{/user/register}" th:object="${user}" method="post" th:id="msform">
     <ul th:id="progressbar">
-        <
+        <li class="active">ACCOUT SETUP</li>
+        <li>PERSONAL DETAILS</li>
+        <li>SPORT</li>
 
     </ul>
-    <p>UserName<input type="text" th:field="*{userName}"></p>
-    <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
-    <p>Imie<input type="text" th:field="*{name}"></p>
-    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">blad</p>
-    <p>Nazwisko<input type="text" th:field="*{lastName}"></p>
-    <p>Wiek<select th:field="*{old}">
-        <option th:each="i : ${#numbers.sequence(1,100)}" th:value="${i}" th:text="${i}"></option>
-    </select></p>
-    <p>Mail <input type="text" th:field="*{mail}"></p>
-    <p th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">blad</p>
-    <p>Password <input type="password" th:field="*{password}"></p>
-    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">blad</p>
+    <fieldset>
+        <h2 class="=fs-title">Create your account</h2>
+        <h2 class="=fs-subtitle">step 1</h2>
+        <p>UserName<input type="text" th:field="*{userName}"></p>
+        <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
+        <p>Mail <input type="text" th:field="*{mail}"></p>
+        <p th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">blad</p>
+        <p>Password <input type="password" th:field="*{password}"></p>
+        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">blad</p>
+        <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+
+    <fieldset>
+<h2 class="fs-title">Personal details</h2>
+        <p>Imie<input type="text" th:field="*{name}"></p>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">blad</p>
+        <p>Nazwisko<input type="text" th:field="*{lastName}"></p>
+        <p>Miasto <input type="text" th:field="*{city}"></p>
+        <p>Data urodzenia<input type="datetime-local" th:field="*{dateOfBirth}">
+    </fieldset>
+    <fieldset>
+        <h2 class="fs-title">Sport</h2>
+        <ul>
+            <li th:each="feat: ${sport}">
+                <input type="checkbox" th:field="*{sports}" th:value="${feat.id}">
+                <label th:text="${feat.name}"></label>
+                <select th:field="${sport}">
+                    <option th:each="a :${level}" th:value="a" th:text="a"></option>
+
+                </select>
+
+            </li>
+        </ul>
+        </ul>
+
+
+
+    </fieldset>
+
+
+
+
+
+
+
     <p>
         <button type="submit">register</button>
     </p>
