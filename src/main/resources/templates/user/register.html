@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-<!--    <link rel="stylesheet" th:href="@{/styles/register.css}">-->
-<!--    <script th:src="|${js}/register.js"></script>-->
-<!--    <script type="text/javascript" th:src="/js/register.js"></script>-->
+    <!--    <link rel="stylesheet" th:href="@{/styles/register.css}">-->
+    <!--    <script th:src="|${js}/register.js"></script>-->
+    <!--    <script type="text/javascript" th:src="/js/register.js"></script>-->
 </head>
 
 <body>
@@ -27,11 +27,11 @@
         <p th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">blad</p>
         <p>Password <input type="password" th:field="*{password}"></p>
         <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">blad</p>
-        <input type="button" name="next" class="next action-button" value="Next" />
+        <input type="button" name="next" class="next action-button" value="Next"/>
     </fieldset>
 
     <fieldset>
-<h2 class="fs-title">Personal details</h2>
+        <h2 class="fs-title">Personal details</h2>
         <p>Imie<input type="text" th:field="*{name}"></p>
         <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">blad</p>
         <p>Nazwisko<input type="text" th:field="*{lastName}"></p>
@@ -40,27 +40,34 @@
     </fieldset>
     <fieldset>
         <h2 class="fs-title">Sport</h2>
+<!--        <table>-->
+<!--            -->
+<!--            <span th:each="sportsa:${sport}">-->
+<!--                <td>-->
+<!--                    <tr th:each="sportsaName:${sportsa.name}"> </tr>-->
+<!--                    <input type="checkbox" th:field="{sports}" th-->
+<!--                </td>-->
+<!--                -->
+<!--                -->
+<!--            </span>-->
+<!--            -->
+<!--            -->
+<!--        </table>-->
         <ul>
-            <li th:each="feat: ${sport}">
-                <input type="checkbox" th:field="*{sports}" th:value="${feat.id}">
-                <label th:text="${feat.name}"></label>
-                <select th:field="${sport}">
-                    <option th:each="a :${level}" th:value="a" th:text="a"></option>
 
-                </select>
+            <li th:each="feat: ${sport}">
+
+                <input type="checkbox" th:field="*{sports}" th:value="${feat.id}">
+
+                <label th:text="${feat.name} +${feat.level} "></label>
+
 
             </li>
-        </ul>
         </ul>
 
 
 
     </fieldset>
-
-
-
-
-
 
 
     <p>

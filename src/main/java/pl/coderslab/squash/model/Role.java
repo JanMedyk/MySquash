@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Role")
 @ToString
@@ -18,4 +18,8 @@ public class Role {
     private int  id;
     private String name;
 
+    public Role(String name) {
+        this.name=name;
+
+    }
 }

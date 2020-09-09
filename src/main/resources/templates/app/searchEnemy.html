@@ -1,10 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
+
+<td>
+    <table>
+
+        <tr th:each="s:${users}">
+            <td th:text="${s.id}"></td>
+
+
+        </tr>
+    </table>
+</td>
+<!--<table>-->
+<!--&lt;!&ndash;<td th:each="user: ${users}">&ndash;&gt;-->
+<!--&lt;!&ndash;    <tr th:text="${user.id}"/>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <tr th:text="${user.name}"/>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <tr th:text="${user.lastName}"/>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <tr th:each="sport:${user.sports}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;       <p th:text="${sport.name}"></p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </tr>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </td>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;</td>&ndash;&gt;-->
+<!--</table>-->
 </body>
 </html>

@@ -10,6 +10,8 @@ import pl.coderslab.squash.User.service.CurrentUser;
 import pl.coderslab.squash.User.service.UserService;
 import pl.coderslab.squash.model.User;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/app")
 @AllArgsConstructor
@@ -17,7 +19,7 @@ import pl.coderslab.squash.model.User;
 public class appController {
     private final UserService userService;
 
-    @RequestMapping("/")
+    @RequestMapping("")
     public ModelAndView appHome(@AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
         ModelAndView modelAndView = new ModelAndView();
@@ -27,16 +29,26 @@ public class appController {
 
 
     }
-
-//    @RequestMapping("/")
-//    public ModelAndView appSearchEnemy(@AuthenticationPrincipal CurrentUser currentUser) {
-//        User user = currentUser.getUser();
-//        ModelAndView modelAndView=new ModelAndView();
-//        modelAndView.addObject("users",userService.findAll());
-//
-//
+//    @RequestMapping("/searchEnemy")
+//    public ModelAndView appSearchEnemy(@AuthenticationPrincipal CurrentUser currentUser)
+//    {
 //
 //    }
+
+    @RequestMapping("/searchEnemy")
+    public ModelAndView appSearchEnemy(@AuthenticationPrincipal CurrentUser currentUser) {
+        User user = currentUser.getUser();
+        ModelAndView modelAndView=new ModelAndView();
+        List<User> users=userService.findAll();
+//        users.remove(user);
+        modelAndView.addObject("users",users);
+        modelAndView.setViewName("/app/searchEnemy");
+        return modelAndView;
+
+
+
+
+    }
 
 
 }

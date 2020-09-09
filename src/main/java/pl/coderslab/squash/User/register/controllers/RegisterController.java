@@ -14,13 +14,12 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import pl.coderslab.squash.Sport.service.SportService;
 import pl.coderslab.squash.User.register.OnRegistrationCompleteEvent;
-import pl.coderslab.squash.model.Token;
-import pl.coderslab.squash.model.User;
+import pl.coderslab.squash.User.repository.RoleRepository;
+import pl.coderslab.squash.model.*;
 import pl.coderslab.squash.User.register.validators.PassValidator;
 import pl.coderslab.squash.User.service.UserService;
 import pl.coderslab.squash.User.register.validators.UniqueMailValidator;
 import pl.coderslab.squash.User.register.validators.UniqueValidator;
-import pl.coderslab.squash.model.levelEnum;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -38,6 +37,8 @@ public class RegisterController {
 
     private final UserService userService;
     private final SportService sportService;
+    private final RoleRepository roleRepository;
+    
 
 
     @InitBinder
@@ -51,6 +52,9 @@ public class RegisterController {
 
     @GetMapping("/register")
     public ModelAndView home() {
+
+        
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", new User());
         modelAndView.addObject("sport",sportService.findAll());

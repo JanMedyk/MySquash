@@ -64,11 +64,28 @@ public class User {
     @Column
     private boolean enabled;
 
+    public User(@NotEmpty @Email String mail, @Size(min = 3, max = 20) String name, @Size(min = 3, max = 20) String userName, @Size(min = 3, max = 20) String lastName, String city, int old, @NotEmpty String password, List<Sport> sports) {
+        this.mail = mail;
+        this.name = name;
+        this.userName = userName;
+        this.lastName = lastName;
+//        this.dateOfBirth = dateOfBirth;
+        this.city = city;
+        this.old = old;
+        this.password = password;
+        this.sports = sports;
+
+
+
+        this.enabled = true;
+    }
+
     public User() {
         super();
         this.enabled = false;
         this.old = 0;
 
     }
+
 
 }

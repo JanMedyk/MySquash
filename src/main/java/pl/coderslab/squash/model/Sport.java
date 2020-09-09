@@ -20,8 +20,9 @@ public class Sport {
     private String name;
 private levelEnum level;
 
-    public Sport(String name) {
+    public Sport(String name,levelEnum levelEnum) {
         this.name=name;
+        this.level=levelEnum;
 
     }
 }
