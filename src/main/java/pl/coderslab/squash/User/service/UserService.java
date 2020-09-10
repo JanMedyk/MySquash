@@ -11,6 +11,7 @@ public interface UserService {
     void saveUser(User user);
     User findByMail(String mail);
     List<User> findAll();
+//    List<User> findAllWithSports();
 
     void createToken(User user, String token);
     Token getToken(String token);

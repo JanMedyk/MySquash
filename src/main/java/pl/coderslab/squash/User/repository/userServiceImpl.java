@@ -1,19 +1,21 @@
 package pl.coderslab.squash.User.repository;
 
+import org.hibernate.Hibernate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.squash.model.Role;
+import pl.coderslab.squash.model.Sport;
 import pl.coderslab.squash.model.Token;
 import pl.coderslab.squash.model.User;
 import pl.coderslab.squash.User.service.UserService;
 
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Service
+@Transactional
 public class userServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -35,7 +37,6 @@ public class userServiceImpl implements UserService {
 
     @Override
     public void saveUser(@Valid User user) {
-//        Pattern.compile("")
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         Role userRole=roleRepository.findByName("ROLE_USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
@@ -52,6 +53,16 @@ public class userServiceImpl implements UserService {
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
+//    @Override
+//    public List<User> findAllWithSports() {
+//        List<User> list = findAll();
+//        Map<Long, List<Sport>> sports = new HashMap<>();
+//        Hibernate.initialize(list.forEach(e->sports.put(e.getId(),e.getSports())));
+//        Hibernate.initialize();
+//
+//
+//    }
 
     @Override
     public void createToken(User user, String token) {

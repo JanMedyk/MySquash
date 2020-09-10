@@ -7,5 +7,7 @@ import java.util.List;
 public interface SportService {
     void saveSport(Sport sport);
     List<Sport> findAll();
+    List<Sport> findAllWithUser();
+
 
 }

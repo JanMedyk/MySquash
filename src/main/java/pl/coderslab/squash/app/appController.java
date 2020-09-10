@@ -1,13 +1,17 @@
 package pl.coderslab.squash.app;
 
 import lombok.AllArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.coderslab.squash.User.service.CurrentUser;
 import pl.coderslab.squash.User.service.UserService;
+import pl.coderslab.squash.model.Sport;
 import pl.coderslab.squash.model.User;
 
 import java.util.List;
@@ -38,10 +42,14 @@ public class appController {
     @RequestMapping("/searchEnemy")
     public ModelAndView appSearchEnemy(@AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
+//        Hibernate.initialize(user.getSports());
         ModelAndView modelAndView=new ModelAndView();
         List<User> users=userService.findAll();
-//        users.remove(user);
+
+
+        users.remove(user);
         modelAndView.addObject("users",users);
+        modelAndView.addObject("user",user);
         modelAndView.setViewName("/app/searchEnemy");
         return modelAndView;
 
@@ -49,6 +57,12 @@ public class appController {
 
 
     }
+    @RequestMapping("/wyzwijEnemy")
+    public String appWyzwijEnemy(@AuthenticationPrincipal CurrentUser currentUser, @RequestParam("idEnemy") Long idEnemy){
+
+
+return "";    }
+
 
 
 }

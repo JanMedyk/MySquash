@@ -1,5 +1,6 @@
 package pl.coderslab.squash.Sport.repository;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import pl.coderslab.squash.Sport.service.SportService;
 import pl.coderslab.squash.model.Sport;
@@ -23,5 +24,12 @@ public class SportServiceImpl implements SportService {
     @Override
     public List<Sport> findAll() {
         return sportRepository.findAll();
+    }
+
+    @Override
+    public List<Sport> findAllWithUser() {
+      List<Sport> sports= findAll();
+
+        return null;
     }
 }

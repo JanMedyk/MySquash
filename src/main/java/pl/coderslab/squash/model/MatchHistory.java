@@ -20,10 +20,15 @@ public class MatchHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime dateMatch;
-    @ManyToMany(mappedBy = "matchHistories")
+    @ManyToMany(mappedBy = "matchHistories",fetch = FetchType.EAGER)
     private List<User> user=new ArrayList<>();
     private Integer pktZawodnika1;
     private Integer pktZawodnika2;
+    private Integer iloscSetow1;
+    private Integer iloscSetow2;
+
+    private Long idWinner;
+
 
 
 }

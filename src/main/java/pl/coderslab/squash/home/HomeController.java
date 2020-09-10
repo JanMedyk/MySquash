@@ -38,7 +38,7 @@ private final UserService userService;
         sportService.saveSport(new Sport("Tenis",levelEnum.Zaawansowany));
         roleRepository.save(new Role("ROLE_USER"));
 
-        User user=new User("jamnik1234@o2.pl","Jan","Bayo","Medyk","wrocław",10,"pies00",sportService.findAll());
+        User user=new User("jaamnik1234@o2.pl","Jan","Bayo","Medyk","wrocław",10,"pies00",sportService.findAll());
         User user2=new User("jan.medyk97@gmail.com","Kasia","kasia","Medyk","wrocław",10,"pies000",sportService.findAll());
         userService.saveUser(user);
         userService.saveUser(user2);

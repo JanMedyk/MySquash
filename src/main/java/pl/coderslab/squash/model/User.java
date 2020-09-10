@@ -42,7 +42,7 @@ public class User {
     @Size(min = 3, max = 20)
     private String lastName;
     private LocalDate dateOfBirth;
-    private String city;
+
 
     private int old;
     @NotEmpty
@@ -51,10 +51,12 @@ public class User {
 
 //    @Size(min = 3, max = 20)
     private String password;
+    @ManyToOne
+    private City city;
 
     @ManyToMany
     private List<Sport> sports = new ArrayList<>();
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<MatchHistory> matchHistories = new ArrayList<>();
     @ManyToMany
     private List<Inventory> inventories = new ArrayList<>();
@@ -70,7 +72,7 @@ public class User {
         this.userName = userName;
         this.lastName = lastName;
 //        this.dateOfBirth = dateOfBirth;
-        this.city = city;
+
         this.old = old;
         this.password = password;
         this.sports = sports;

@@ -7,12 +7,22 @@
 </head>
 <body>
 
-
+<!--<td>-->
+<!--    <tr th:text="${user.sports}"></tr>-->
+<!--</td>-->
 <td>
     <table>
 
         <tr th:each="s:${users}">
-            <td th:text="${s.id}"></td>
+            <td th:text="${s.name}"></td>
+
+            <td th:each="a:${s.sports}">
+                <p th:text="${a.name}"></p>
+                <p th:text="${a.level}"></p>
+            </td>
+
+<!--            <td th:text="${s.sports}"></td>-->
+            <td><a th:href="@{/wyzwijEnemy(idEnemy=${s.getId()})}">Wyzwij gracza</a> </td>
 
 
         </tr>
