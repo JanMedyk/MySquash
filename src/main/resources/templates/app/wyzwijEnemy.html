@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Ty</th>
+        <th>Przeciwnik</th>
+
+    </tr>
+    <tr>
+        <td th:text="${you.name}"></td>
+        <td th:text="${enemy.name}"></td>
+
+
+    </tr>
+    <tr>
+        <td th:text="${you.old}"></td>
+        <td th:text="${enemy.old}"></td>
+
+
+    </tr>
+    <tr>
+        <td th:each="i:${you.sports}" th:text="${i.name}"></td>
+        <td th:each="i:${enemy.sports}" th:text="${i.name}"></td>
+    </tr>
+<tr>Zaproponuj termin
+    <td>
+        <form th:action="@{/app/wyzwijEnemy}" th:object="${date}" method="post">
+            <p>Data<input type="date" th:field="*{dateMatch}"></p>
+            <p>Godzina<input type="time" th:field="*{timeMatch}"></p>
+            <p>Sport</p>
+<!--            <table>-->
+<!--                <tr th:each="${spo}"></tr>-->
+<!--            </table>-->
+
+
+        </form>
+    </td>
+</tr>
+
+</table>
+</body>
+</html>

@@ -3,7 +3,9 @@ package pl.coderslab.squash.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,16 +21,42 @@ public class MatchHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime dateMatch;
-    @ManyToMany(mappedBy = "matchHistories",fetch = FetchType.EAGER)
-    private List<User> user=new ArrayList<>();
-    private Integer pktZawodnika1;
-    private Integer pktZawodnika2;
-    private Integer iloscSetow1;
-    private Integer iloscSetow2;
+    @ManyToOne
+    private Sport sport;
+
+    private LocalDateTime dateMatchTotal;
+    @Transient
+    private LocalDate dateMatch;
+    @Transient
+    private LocalTime timeMatch;
+
+
+    @ManyToOne
+    private User userZakladajacy;
+    @ManyToOne
+    private User userPrzyjmujacy;
+
+    private Integer pktUserZakladajacy;
+    private Integer pktUserPrzyjmujacy;
+    private Integer iloscSetowZakladajacy;
+    private Integer iloscSetowyjmujacy;
 
     private Long idWinner;
+    private Boolean accepted;
+
+    @PrePersist
+    public void PrePersist() {
+        dateMatchTotal = LocalDateTime.of(dateMatch, timeMatch);
 
 
+    }
 
+    @PreUpdate
+    public void PreUpdate() {
+        dateMatchTotal = LocalDateTime.of(dateMatch, timeMatch);
+    }
+
+
+    public MatchHistory(LocalDateTime localDateTime) {
+    }
 }

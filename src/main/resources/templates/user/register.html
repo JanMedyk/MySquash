@@ -35,7 +35,10 @@
         <p>Imie<input type="text" th:field="*{name}"></p>
         <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">blad</p>
         <p>Nazwisko<input type="text" th:field="*{lastName}"></p>
-        <p>Miasto <input type="text" th:field="*{city}"></p>
+        <p>Miasto <select th:field="*{city}">
+            <option th:each="i : ${cities}" th:value="${i.id}" th:text="${i.name}"></option>
+
+        </select></p>
         <p>Data urodzenia<input type="datetime-local" th:field="*{dateOfBirth}">
     </fieldset>
     <fieldset>
@@ -55,12 +58,25 @@
 <!--        </table>-->
         <ul>
 
-            <li th:each="feat: ${sport}">
+            <li th:each="feat: ${sportsEnum}">
+                <label th:text="${feat.name}  "></label>
+<div th:each="aa:${level}">
+    <input type="radio"  th:value="${sportUser}" th:text="${aa.name}">
 
-                <input type="checkbox" th:field="*{sports}" th:value="${feat.id}">
+<!--</div>-->
+<!--                <input type="checkbox" th:field="*{sports}" th:value="${feat.id}">-->
+<!--                <div th:each="aa:${level}">-->
+<!--                    <input type="radio" th:field="*{feat.level}">-->
+<!--                </div>-->
+<!---->
 
-                <label th:text="${feat.name} +${feat.level} "></label>
 
+<!--                <div th:each="aa:${level}">-->
+<!--                    <input type="radio"  th:field="*{sports.${feat}.}" th:value="${aa.id}" th:text="${aa.name}">-->
+
+<!--                    </input>-->
+
+<!--                </div>-->
 
             </li>
         </ul>

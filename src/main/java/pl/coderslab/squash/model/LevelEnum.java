@@ -1,5 +1,5 @@
 package pl.coderslab.squash.model;
 
-public enum levelEnum {
+public enum LevelEnum {
     Początkujacy,Średniozaawansowany,Zaawansowany;
 }

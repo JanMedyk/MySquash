@@ -10,6 +10,9 @@ import pl.coderslab.squash.model.User;
 import pl.coderslab.squash.User.service.UserService;
 
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.*;
@@ -17,6 +20,8 @@ import java.util.*;
 @Service
 @Transactional
 public class userServiceImpl implements UserService {
+    @PersistenceContext
+    private EntityManager entityManager;
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -53,6 +58,13 @@ public class userServiceImpl implements UserService {
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
+    @Override
+    public User findById(Long id) {
+       return entityManager.find(User.class, id);
+
+    }
+
 
 //    @Override
 //    public List<User> findAllWithSports() {

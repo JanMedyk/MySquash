@@ -12,9 +12,11 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import pl.coderslab.squash.Level.repository.LevelRepository;
 import pl.coderslab.squash.Sport.service.SportService;
 import pl.coderslab.squash.User.register.OnRegistrationCompleteEvent;
 import pl.coderslab.squash.User.repository.RoleRepository;
+import pl.coderslab.squash.city.repository.CityRepository;
 import pl.coderslab.squash.model.*;
 import pl.coderslab.squash.User.register.validators.PassValidator;
 import pl.coderslab.squash.User.service.UserService;
@@ -38,7 +40,9 @@ public class RegisterController {
     private final UserService userService;
     private final SportService sportService;
     private final RoleRepository roleRepository;
-    
+    private final CityRepository cityRepository;
+    private final LevelRepository levelRepository;
+
 
 
     @InitBinder
@@ -53,12 +57,18 @@ public class RegisterController {
     @GetMapping("/register")
     public ModelAndView home() {
 
-        
+
+
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", new User());
-        modelAndView.addObject("sport",sportService.findAll());
-        modelAndView.addObject("level", levelEnum.values());
+        modelAndView.addObject("sportsEnum",sportService.findAll());
+        modelAndView.addObject("level",levelRepository.findAllBy());
+        modelAndView.addObject("cities",cityRepository.findAll());
+        modelAndView.addObject("sportUser",new Sport());
+
+
+
 
         modelAndView.setViewName("user/register");
         return modelAndView;
@@ -67,7 +77,7 @@ public class RegisterController {
     @PostMapping("/register")
     public String register(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-           return "user/register";
+           return "redirect:http://localhost:8080/user/register";
         } else {
 //            User user1 = userService.findByUserName(user.getUserName());
 //            if (user1 != null) {

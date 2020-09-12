@@ -46,10 +46,7 @@ public class User {
 
     private int old;
     @NotEmpty
-//    @Length(min = 3, max = 20)
-//    @Column(length = 200)
 
-//    @Size(min = 3, max = 20)
     private String password;
     @ManyToOne
     private City city;
@@ -58,8 +55,7 @@ public class User {
     private List<Sport> sports = new ArrayList<>();
     @ManyToMany(fetch = FetchType.EAGER)
     private List<MatchHistory> matchHistories = new ArrayList<>();
-    @ManyToMany
-    private List<Inventory> inventories = new ArrayList<>();
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
