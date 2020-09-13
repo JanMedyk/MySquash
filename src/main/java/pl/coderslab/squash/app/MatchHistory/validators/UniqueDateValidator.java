@@ -29,14 +29,14 @@ public class UniqueDateValidator implements Validator {
         MatchHistory matchHistory= (MatchHistory) o;
         LocalDate localDate=LocalDate.parse(matchHistory.getDateMatch());
         LocalTime localTime=matchHistory.getTimeMatch();
-//        User user=matchHistory.getUserPrzyjmujacy();
+        User user=matchHistory.getUserPrzyjmujacy();
 
 
 
-//        if(matchHistoryService.findByDateMatchTotalAndUserPrzyjmujacy((LocalDateTime.of(localDate,localTime)),user)!=null)
-//        {
-//            errors.rejectValue("dateMatchTotal","matchHistory.date","masz juz inne spotkanie ");
-//        }
+        if(matchHistoryService.findByDateMatchTotalAndUserPrzyjmujacy((LocalDateTime.of(localDate,localTime)),user)!=null)
+        {
+            errors.rejectValue("TimeMatch","matchHistory.timeMatch","masz juz inne spotkanie ");
+        }
 
 
     }

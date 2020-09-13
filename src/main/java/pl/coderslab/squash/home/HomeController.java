@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.squash.Level.service.LevelService;
 import pl.coderslab.squash.Sport.repository.SportRepository;
 import pl.coderslab.squash.Sport.service.SportService;
 import pl.coderslab.squash.User.repository.RoleRepository;
@@ -21,6 +22,7 @@ private final SportRepository sportRepository;
 private final RoleRepository roleRepository;
 private final SportService sportService;
 private final UserService userService;
+private final LevelService levelService;
 
     @GetMapping("/")
     public String home(){
@@ -44,10 +46,11 @@ private final UserService userService;
         User user=userService.findByUserName("Bayo");
         User user1=userService.findByUserName("Bayoa");
         List<Sport> sports=new ArrayList<>();
-        sports.add(new Sport(SportEnum.Tenis,new Level(LevelEnum.Początkujacy)));
-        sports.add(new Sport(SportEnum.PingPong,new Level(LevelEnum.Początkujacy)));
-        sports.add(new Sport(SportEnum.Squash,new Level(LevelEnum.Początkujacy)));
-        sports.add(new Sport(SportEnum.Badminton,new Level(LevelEnum.Zaawansowany)));
+        sports.add(new Sport(SportEnum.Tenis,levelService
+                .findByName(LevelEnum.Początkujacy)));
+        sports.add(new Sport(SportEnum.PingPong,levelService.findByName(LevelEnum.Początkujacy)));
+        sports.add(new Sport(SportEnum.Squash,levelService.findByName(LevelEnum.Początkujacy)));
+        sports.add(new Sport(SportEnum.Badminton,levelService.findByName(LevelEnum.Zaawansowany)));
         user.setSports(sports);
         userService.saveUser(user);
 //

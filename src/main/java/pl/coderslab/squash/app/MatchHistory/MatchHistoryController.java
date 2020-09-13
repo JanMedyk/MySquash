@@ -21,6 +21,7 @@ import pl.coderslab.squash.model.User;
 
 import javax.validation.Valid;
 import java.util.List;
+
 @Controller
 @RequestMapping("/app")
 @AllArgsConstructor
@@ -31,11 +32,12 @@ public class MatchHistoryController {
     private final SportRepository sportRepository;
     private final MatchHistoryService matchHistoryService;
 
-//    @InitBinder
-//    public void initBinder(WebDataBinder binder) {
-//
-//
-//    }
+    @InitBinder("matchHistory")
+    public void initBinder(WebDataBinder binder) {
+
+        binder.setValidator(new UniqueDateValidator(matchHistoryService));
+    }
+
     @RequestMapping("/searchEnemy")
     public ModelAndView appSearchEnemy(@AuthenticationPrincipal CurrentUser currentUser) {
         User user = currentUser.getUser();
@@ -58,7 +60,7 @@ public class MatchHistoryController {
     @ResponseBody
     public ModelAndView appWyzwijEnemy(@AuthenticationPrincipal CurrentUser currentUser, @RequestParam("idEnemy") Long idEnemy) {
         User you = currentUser.getUser();
-        MatchHistory matchHistory=new MatchHistory();
+        MatchHistory matchHistory = new MatchHistory();
 
         User enemyUser = userService.findById(idEnemy);
         matchHistory.setUserPrzyjmujacy(enemyUser);
@@ -66,7 +68,7 @@ public class MatchHistoryController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("enemy", enemyUser);
         modelAndView.addObject("you", you);
-        modelAndView.addObject("date",matchHistory);
+        modelAndView.addObject("date", matchHistory);
 //            modelAndView.addObject("sports", SportEnum);
 
         modelAndView.setViewName("/app/wyzwijEnemy");
@@ -75,12 +77,11 @@ public class MatchHistoryController {
     }
 
     @PostMapping("/wyzwijEnemy")
-    public String appPostWyzwijEnemy(@AuthenticationPrincipal CurrentUser currentUser, @Valid MatchHistory date, BindingResult bindingResult) {
-        if(bindingResult.hasErrors())
-        return "/app/wyzwijEnemy";
-else
-        {
-            matchHistoryService.saveMatchHistory(date);
+    public String appPostWyzwijEnemy(@AuthenticationPrincipal CurrentUser currentUser, @Valid MatchHistory matchHistory, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "/app/wyzwijEnemy";
+        else {
+            matchHistoryService.saveMatchHistory(matchHistory);
             return "/app/home";
 
         }

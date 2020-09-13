@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import pl.coderslab.squash.Level.repository.LevelRepository;
+import pl.coderslab.squash.Level.service.LevelService;
 import pl.coderslab.squash.Sport.service.SportService;
 import pl.coderslab.squash.User.register.OnRegistrationCompleteEvent;
 import pl.coderslab.squash.User.repository.RoleRepository;
@@ -47,10 +48,11 @@ public class RegisterController {
     private final RoleRepository roleRepository;
     private final CityRepository cityRepository;
     private final LevelRepository levelRepository;
+    private final LevelService levelService;
     private final MatchHistoryService matchHistoryService;
 
 
-    @InitBinder
+    @InitBinder("user")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(new PassValidator());
         binder.addValidators(new UniqueMailValidator(userService));
@@ -76,7 +78,8 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid User user, BindingResult bindingResult, HttpServletRequest request, @RequestParam(value = "Tenis",required = false) LevelEnum Tenis, @RequestParam(value = "PingPong",required = false) LevelEnum PingPong, @RequestParam(value = "Squash",required = false) LevelEnum Squash, @RequestParam(value = "Badminton",required = false) LevelEnum Badminton) {
+
+    public String register(@Valid  User user, BindingResult bindingResult, HttpServletRequest request, @RequestParam(value = "Tenis",required = false) LevelEnum Tenis, @RequestParam(value = "PingPong",required = false) LevelEnum PingPong, @RequestParam(value = "Squash",required = false) LevelEnum Squash, @RequestParam(value = "Badminton",required = false) LevelEnum Badminton) {
         if (bindingResult.hasErrors()) {
             return "/user/register";
         } else {
@@ -89,19 +92,19 @@ public class RegisterController {
             user.setOld(Period.between(user.getDateOfBirth(), LocalDate.now()).getYears());
             List<Sport> sports = new ArrayList<>();
             if (Tenis != null) {
-                levelRepository.findByName(Tenis);
-                sports.add(new Sport(SportEnum.Tenis, levelRepository.findByName(Tenis)));
+//                levelRepository.findByName(Tenis);
+                sports.add(new Sport(SportEnum.Tenis, levelService.findByName(Tenis)));
             }
             if (PingPong != null) {
-                sports.add(new Sport(SportEnum.PingPong, levelRepository.findByName(PingPong)));
+                sports.add(new Sport(SportEnum.PingPong, levelService.findByName(PingPong)));
 
             }
             if (Squash != null) {
-                sports.add(new Sport(SportEnum.Squash, levelRepository.findByName(Squash)));
+                sports.add(new Sport(SportEnum.Squash, levelService.findByName(Squash)));
 
             }
             if (Badminton != null) {
-                sports.add(new Sport(SportEnum.Badminton, levelRepository.findByName(Badminton)));
+                sports.add(new Sport(SportEnum.Badminton, levelService.findByName(Badminton)));
 
             }
             user.setSports(sports);
