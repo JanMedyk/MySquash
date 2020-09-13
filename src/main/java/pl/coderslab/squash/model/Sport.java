@@ -21,9 +21,14 @@ public class Sport {
     @Enumerated(value = EnumType.STRING)
 
     private SportEnum name;
-    @ManyToOne
+    @ManyToOne(cascade =CascadeType.PERSIST)
     private Level levels;
 //    private LevelEnum level;
 
 
+    public Sport(SportEnum name, Level levels) {
+        this.name=name;
+        this.levels=levels;
+
+    }
 }

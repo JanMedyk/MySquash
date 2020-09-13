@@ -8,8 +8,10 @@ import pl.coderslab.squash.Sport.repository.SportRepository;
 import pl.coderslab.squash.Sport.service.SportService;
 import pl.coderslab.squash.User.repository.RoleRepository;
 import pl.coderslab.squash.User.service.UserService;
-import pl.coderslab.squash.model.Role;
-import pl.coderslab.squash.model.User;
+import pl.coderslab.squash.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -34,12 +36,23 @@ private final UserService userService;
 //        sportService.saveSport(new Sport("Tenis",levelEnum.Początkujacy));
 //        sportService.saveSport(new Sport("Tenis",levelEnum.Średniozaawansowany));
 //        sportService.saveSport(new Sport("Tenis",levelEnum.Zaawansowany));
-        roleRepository.save(new Role("ROLE_USER"));
 
 //        User user=new User("jaamnik1234@o2.pl","Jan","Bayo","Medyk","wrocław",10,"pies00",sportService.findAll());
 //        User user2=new User("jan.medyk97@gmail.com","Kasia","kasia","Medyk","wrocław",10,"pies000",sportService.findAll());
 //        userService.saveUser(user);
 //        userService.saveUser(user2);
+        User user=userService.findByUserName("Bayo");
+        User user1=userService.findByUserName("Bayoa");
+        List<Sport> sports=new ArrayList<>();
+        sports.add(new Sport(SportEnum.Tenis,new Level(LevelEnum.Początkujacy)));
+        sports.add(new Sport(SportEnum.PingPong,new Level(LevelEnum.Początkujacy)));
+        sports.add(new Sport(SportEnum.Squash,new Level(LevelEnum.Początkujacy)));
+        sports.add(new Sport(SportEnum.Badminton,new Level(LevelEnum.Zaawansowany)));
+        user.setSports(sports);
+        userService.saveUser(user);
+//
+        user1.setSports(sports);
+        userService.saveUser(user1);
         return "/home/home";
 
     }

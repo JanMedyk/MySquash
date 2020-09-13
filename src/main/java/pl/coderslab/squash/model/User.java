@@ -51,7 +51,7 @@ public class User {
     @ManyToOne
     private City city;
 
-    @ManyToMany
+    @ManyToMany(cascade =CascadeType.PERSIST)
     private List<Sport> sports = new ArrayList<>();
     @ManyToMany(fetch = FetchType.EAGER)
     private List<MatchHistory> matchHistories = new ArrayList<>();

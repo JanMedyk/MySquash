@@ -57,28 +57,45 @@
 <!--            -->
 <!--        </table>-->
         <ul>
+<li >
+    <p>Tenis</p>
+    <input type="radio" name="Tenis" value="Początkujacy">Początkujący
+    <input type="radio" name="Tenis" value="Średniozaawansowany">Średniozaawansowany
+    <input type="radio" name="Tenis" value="Zaawansowany">Zaawansowany
+    <p>PingPong</p>
+    <input type="radio" name="PingPong" value="Początkujacy">Początkujący
+    <input type="radio" name="PingPong" value="Średniozaawansowany">Średniozaawansowany
+    <input type="radio" name="PingPong" value="Zaawansowany">Zaawansowany
+    <p>Squash</p>
+    <input type="radio" name="Squash" value="Początkujacy">Początkujący
+    <input type="radio" name="Squash" value="Średniozaawansowany">Średniozaawansowany
+    <input type="radio" name="Squash" value="Zaawansowany">Zaawansowany
+    <p>Badminton</p>
+    <input type="radio" name="Badminton" value="Początkujacy">Początkujący
+    <input type="radio" name="Badminton" value="Średniozaawansowany">Średniozaawansowany
+    <input type="radio" name="Badminton" value="Zaawansowany">Zaawansowany
+</li>
+        </ul>
+<!--&lt;!&ndash;                <label th:text="${feat.name}  "></label>&ndash;&gt;-->
+<!--&lt;!&ndash;<div th:each="aa:${level}">&ndash;&gt;-->
+<!--&lt;!&ndash;    <input type="radio"  th:value="${sportUser}" th:text="${aa.name}">&ndash;&gt;-->
 
-            <li th:each="feat: ${sportsEnum}">
-                <label th:text="${feat.name}  "></label>
-<div th:each="aa:${level}">
-    <input type="radio"  th:value="${sportUser}" th:text="${aa.name}">
-
-<!--</div>-->
-<!--                <input type="checkbox" th:field="*{sports}" th:value="${feat.id}">-->
-<!--                <div th:each="aa:${level}">-->
-<!--                    <input type="radio" th:field="*{feat.level}">-->
-<!--                </div>-->
-<!---->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <input type="checkbox" th:field="*{sports}" th:value="${feat.id}">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div th:each="aa:${level}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="radio" th:field="*{feat.level}">&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;&ndash;&gt;-->
 
 
-<!--                <div th:each="aa:${level}">-->
-<!--                    <input type="radio"  th:field="*{sports.${feat}.}" th:value="${aa.id}" th:text="${aa.name}">-->
+<!--&lt;!&ndash;                <div th:each="aa:${level}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="radio"  th:field="*{sports.${feat}.}" th:value="${aa.id}" th:text="${aa.name}">&ndash;&gt;-->
 
-<!--                    </input>-->
+<!--&lt;!&ndash;                    </input>&ndash;&gt;-->
 
-<!--                </div>-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
 
-            </li>
+
         </ul>
 
 

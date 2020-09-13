@@ -1,6 +1,7 @@
 package pl.coderslab.squash.model;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,14 +22,17 @@ public class MatchHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    private Sport sport;
+    //    @ManyToOne
+    private SportEnum sport;
 
     private LocalDateTime dateMatchTotal;
     @Transient
-    private LocalDate dateMatch;
+
+    private String dateMatch;
     @Transient
     private LocalTime timeMatch;
+    @ManyToOne
+    private Club club;
 
 
     @ManyToOne
@@ -46,14 +50,18 @@ public class MatchHistory {
 
     @PrePersist
     public void PrePersist() {
-        dateMatchTotal = LocalDateTime.of(dateMatch, timeMatch);
+        LocalDate aa = LocalDate.parse(dateMatch);
+        dateMatchTotal = LocalDateTime.of(aa, timeMatch);
+        this.accepted=false;
+
 
 
     }
 
     @PreUpdate
     public void PreUpdate() {
-        dateMatchTotal = LocalDateTime.of(dateMatch, timeMatch);
+        LocalDate aa = LocalDate.parse(dateMatch);
+        dateMatchTotal = LocalDateTime.of(aa, timeMatch);
     }
 
 

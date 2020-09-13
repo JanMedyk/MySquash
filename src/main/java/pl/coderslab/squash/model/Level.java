@@ -1,9 +1,6 @@
 package pl.coderslab.squash.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 //@AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 @Table(name = "Level")
 @ToString
 @EqualsAndHashCode(of = "id")
@@ -22,7 +19,8 @@ public class Level {
     private Long id;
     @Enumerated(value = EnumType.STRING)
     private LevelEnum name;
-    @OneToMany
-    private List<Sport> sport;
 
+    public Level(LevelEnum levelEnum) {
+        this.name=levelEnum;
+    }
 }

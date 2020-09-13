@@ -25,15 +25,29 @@
 
     </tr>
     <tr>
-        <td th:each="i:${you.sports}" th:text="${i.name}"></td>
-        <td th:each="i:${enemy.sports}" th:text="${i.name}"></td>
+        <td><div th:each="i:${you.sports}" th:text="${i.name}+ ${i.levels.name}"></div></td>
+        <td> <div th:each="i:${enemy.sports}" th:text="${i.name} +${i.levels.name}"></div></td>
     </tr>
+</table>
 <tr>Zaproponuj termin
     <td>
-        <form th:action="@{/app/wyzwijEnemy}" th:object="${date}" method="post">
+        <form th:action="@{/app/wyzwijEnemy}"   th:object="${date}" method="post">
             <p>Data<input type="date" th:field="*{dateMatch}"></p>
             <p>Godzina<input type="time" th:field="*{timeMatch}"></p>
-            <p>Sport</p>
+
+            <p>Sport <select th:field="*{sport}">
+            <option th:value="Tenis" th:text="Tenis"/>
+            <option th:value="Squash" th:text="Squash"/>
+            <option th:value="Badminton" th:text="Badminton"/>
+            <option th:value="PingPong" th:text="PingPong"/>
+            </select>
+            </p>
+            <input type="hidden" th:field="*{userZakladajacy}">
+            <input type="hidden" th:field="*{userPrzyjmujacy}">
+
+            <p>
+                <button type="submit">register</button>
+            </p>
 <!--            <table>-->
 <!--                <tr th:each="${spo}"></tr>-->
 <!--            </table>-->
@@ -43,6 +57,6 @@
     </td>
 </tr>
 
-</table>
+
 </body>
 </html>
