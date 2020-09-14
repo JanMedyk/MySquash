@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<td>
+    <table>
+
+        <tr th:each="s:${matches}">
+            <td th:text="${s.getSport()}"></td>
+<!--            <td th:text="${s.get}"></td>-->
+
+<!--            <td th:each="a:${s.sports}">-->
+<!--                <p th:text="${a.name}"></p>-->
+<!--                <p th:text="${a.levels.name}"></p>-->
+<!--            </td>-->
+
+<!--            &lt;!&ndash;            <td th:text="${s.sports}"></td>&ndash;&gt;-->
+<!--            <td><a th:href="@{/app/wyzwijEnemy(idEnemy=${s.getId()})}">Wyzwij gracza</a> </td>-->
+
+
+        </tr>
+    </table>
+</td>
+</body>
+</html>

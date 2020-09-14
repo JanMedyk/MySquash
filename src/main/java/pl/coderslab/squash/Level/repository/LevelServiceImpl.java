@@ -4,7 +4,7 @@
 //import pl.coderslab.squash.Level.service.LevelService;
 //import pl.coderslab.squash.Sport.service.SportService;
 //import pl.coderslab.squash.model.Level;
-//import pl.coderslab.squash.model.LevelEnum;
+//import pl.coderslab.squash.model.enums.LevelEnum;
 //import pl.coderslab.squash.model.Sport;
 //
 //import java.util.List;

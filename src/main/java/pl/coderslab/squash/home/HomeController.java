@@ -10,6 +10,8 @@ import pl.coderslab.squash.Sport.service.SportService;
 import pl.coderslab.squash.User.repository.RoleRepository;
 import pl.coderslab.squash.User.service.UserService;
 import pl.coderslab.squash.model.*;
+import pl.coderslab.squash.model.enums.LevelEnum;
+import pl.coderslab.squash.model.enums.SportEnum;
 
 import java.util.ArrayList;
 import java.util.List;

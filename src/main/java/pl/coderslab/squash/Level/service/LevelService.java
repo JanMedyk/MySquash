@@ -3,9 +3,8 @@ package pl.coderslab.squash.Level.service;
 import org.springframework.stereotype.Service;
 import pl.coderslab.squash.Level.repository.LevelRepository;
 import pl.coderslab.squash.model.Level;
-import pl.coderslab.squash.model.LevelEnum;
+import pl.coderslab.squash.model.enums.LevelEnum;
 
-import java.util.List;
 @Service
 public class LevelService {
         private final LevelRepository levelRepository;

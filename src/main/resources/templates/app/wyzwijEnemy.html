@@ -6,32 +6,33 @@
     <title>Title</title>
 </head>
 <body>
-<!--<table>-->
-<!--    <tr>-->
-<!--        <th>Ty</th>-->
-<!--        <th>Przeciwnik</th>-->
 
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td th:text="${you.name}"></td>-->
-<!--        <td th:text="${enemy.name}"></td>-->
-
-
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td th:text="${you.old}"></td>-->
-<!--        <td th:text="${enemy.old}"></td>-->
-
-
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td><div th:each="i:${you.sports}" th:text="${i.name}+ ${i.levels.name}"></div></td>-->
-<!--        <td> <div th:each="i:${enemy.sports}" th:text="${i.name} +${i.levels.name}"></div></td>-->
-<!--    </tr>-->
-<!--</table>-->
 <tr>Zaproponuj termin
     <td>
-        <form th:action="@{/app/wyzwijEnemy}"   th:object="${date}" method="post">
+        <form th:action="@{/app/wyzwijEnemy}"   th:object="${matchHistory}" method="post">
+            <table>
+                <tr>
+                    <th>Ty</th>
+                    <th>Przeciwnik</th>
+
+                </tr>
+                <tr>
+                    <td th:text="${you.name}"></td>
+                    <td th:text="${enemy.name}"></td>
+
+
+                </tr>
+                <tr>
+                    <td th:text="${you.old}"></td>
+                    <td th:text="${enemy.old}"></td>
+
+
+                </tr>
+                <tr>
+                    <td><div th:each="i:${you.sports}" th:text="${i.name}+ ${i.levels.name}"></div></td>
+                    <td> <div th:each="i:${enemy.sports}" th:text="${i.name} +${i.levels.name}"></div></td>
+                </tr>
+            </table>
             <p>Data<input type="date" th:field="*{dateMatch}"></p>
             <p>Godzina<input type="time" th:field="*{timeMatch}"></p>
             <p th:if="${#fields.hasErrors('timeMatch')}" th:errors="*{timeMatch}">blad</p>

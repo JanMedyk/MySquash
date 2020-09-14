@@ -1,23 +1,14 @@
 package pl.coderslab.squash.app;
 
 import lombok.AllArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.coderslab.squash.Sport.repository.SportRepository;
 import pl.coderslab.squash.User.service.CurrentUser;
 import pl.coderslab.squash.User.service.UserService;
-import pl.coderslab.squash.model.MatchHistory;
-import pl.coderslab.squash.model.Sport;
-import pl.coderslab.squash.model.SportEnum;
 import pl.coderslab.squash.model.User;
-
-import javax.validation.Valid;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/app")

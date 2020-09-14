@@ -18,13 +18,14 @@ import pl.coderslab.squash.Sport.service.SportService;
 import pl.coderslab.squash.User.register.OnRegistrationCompleteEvent;
 import pl.coderslab.squash.User.repository.RoleRepository;
 import pl.coderslab.squash.app.MatchHistory.service.MatchHistoryService;
-import pl.coderslab.squash.app.MatchHistory.validators.UniqueDateValidator;
 import pl.coderslab.squash.city.repository.CityRepository;
 import pl.coderslab.squash.model.*;
 import pl.coderslab.squash.User.register.validators.PassValidator;
 import pl.coderslab.squash.User.service.UserService;
 import pl.coderslab.squash.User.register.validators.UniqueMailValidator;
 import pl.coderslab.squash.User.register.validators.UniqueValidator;
+import pl.coderslab.squash.model.enums.LevelEnum;
+import pl.coderslab.squash.model.enums.SportEnum;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -33,7 +34,6 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/user")

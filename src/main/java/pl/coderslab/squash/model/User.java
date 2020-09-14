@@ -53,8 +53,8 @@ public class User {
 
     @ManyToMany(cascade =CascadeType.PERSIST)
     private List<Sport> sports = new ArrayList<>();
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<MatchHistory> matchHistories = new ArrayList<>();
+//    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+//    private List<MatchHistory> matchHistories = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

@@ -35,7 +35,7 @@ public class UniqueDateValidator implements Validator {
 
         if(matchHistoryService.findByDateMatchTotalAndUserPrzyjmujacy((LocalDateTime.of(localDate,localTime)),user)!=null)
         {
-            errors.rejectValue("TimeMatch","matchHistory.timeMatch","masz juz inne spotkanie ");
+            errors.rejectValue("timeMatch","matchHistory.timeMatch","masz juz inne spotkanie ");
         }
 
 

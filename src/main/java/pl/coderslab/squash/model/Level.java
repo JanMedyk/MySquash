@@ -1,9 +1,9 @@
 package pl.coderslab.squash.model;
 
 import lombok.*;
+import pl.coderslab.squash.model.enums.LevelEnum;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter

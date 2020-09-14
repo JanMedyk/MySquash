@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.squash.Sport.repository.SportRepository;
 import pl.coderslab.squash.User.register.validators.PassValidator;
 import pl.coderslab.squash.User.register.validators.UniqueMailValidator;
@@ -68,7 +69,7 @@ public class MatchHistoryController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("enemy", enemyUser);
         modelAndView.addObject("you", you);
-        modelAndView.addObject("date", matchHistory);
+        modelAndView.addObject("matchHistory", matchHistory);
 //            modelAndView.addObject("sports", SportEnum);
 
         modelAndView.setViewName("/app/wyzwijEnemy");
@@ -77,13 +78,38 @@ public class MatchHistoryController {
     }
 
     @PostMapping("/wyzwijEnemy")
-    public String appPostWyzwijEnemy(@AuthenticationPrincipal CurrentUser currentUser, @Valid MatchHistory matchHistory, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "/app/wyzwijEnemy";
-        else {
+    public ModelAndView appPostWyzwijEnemy(RedirectAttributes attr, @Valid MatchHistory matchHistory, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+//            attr.addFlashAttribute("timeMatch",bindingResult);
+//            attr.addFlashAttribute("matchHistory",matchHistory);
+            modelAndView.addObject("matchHistory", matchHistory);
+            modelAndView.addObject("enemy", matchHistory.getUserPrzyjmujacy());
+            modelAndView.addObject("you", matchHistory.getUserZakladajacy());
+            modelAndView.setViewName("/app/wyzwijEnemy");
+            return modelAndView;
+        } else {
             matchHistoryService.saveMatchHistory(matchHistory);
-            return "/app/home";
+//            User user=matchHistory.getUserZakladajacy();
+//            List<MatchHistory> matchHistories=user.getMatchHistories();
+//            matchHistories.add(matchHistory);
+//            user.setMatchHistories(matchHistories);
+//            userService.saveUser(user);
+            modelAndView.setViewName("/app/home");
+            return modelAndView;
 
         }
+    }
+
+    @GetMapping("/matchHistory")
+    public ModelAndView matchHistory(@AuthenticationPrincipal CurrentUser
+                                             Cuser) {
+        User user=Cuser.getUser();
+        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.addObject("matches",user.getMatchHistories());
+        modelAndView.addObject("matches",matchHistoryService.findAllByUsernameZakladajacy(user));
+//        modelAndView.addObject("matches",matchHistoryService.findAll());
+        modelAndView.setViewName("/app/matchHistory");
+        return modelAndView;
     }
 }

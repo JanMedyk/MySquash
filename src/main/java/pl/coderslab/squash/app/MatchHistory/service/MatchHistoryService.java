@@ -28,6 +28,12 @@ public MatchHistory findByDateMatchTotalAndUserPrzyjmujacy(LocalDateTime localDa
    return matchHistoryRepository.findByDateMatchTotalAndUserPrzyjmujacy(localDateTime,user);
 
 }
+public List<MatchHistory> findAllByUsernameZakladajacy(User user)
+{
+    return matchHistoryRepository.findAllByUserZakladajacy(user);
+
+
+}
 
 
 
