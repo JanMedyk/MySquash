@@ -34,6 +34,11 @@ public List<MatchHistory> findAllByUsernameZakladajacy(User user)
 
 
 }
+public MatchHistory findAllByUserZakladajacyOrUserPrzyjmujacyAndId(User user, Long id)
+{
+    return matchHistoryRepository.findAllByUserZakladajacyOrUserPrzyjmujacyAndId(user,id);
+
+}
 
 
 

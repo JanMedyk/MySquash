@@ -18,9 +18,11 @@ import pl.coderslab.squash.app.MatchHistory.repository.MatchHistoryRepository;
 import pl.coderslab.squash.app.MatchHistory.service.MatchHistoryService;
 import pl.coderslab.squash.app.MatchHistory.validators.UniqueDateValidator;
 import pl.coderslab.squash.model.MatchHistory;
+import pl.coderslab.squash.model.Set;
 import pl.coderslab.squash.model.User;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -104,12 +106,32 @@ public class MatchHistoryController {
     @GetMapping("/matchHistory")
     public ModelAndView matchHistory(@AuthenticationPrincipal CurrentUser
                                              Cuser) {
-        User user=Cuser.getUser();
+        User user = Cuser.getUser();
         ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.addObject("matches",user.getMatchHistories());
-        modelAndView.addObject("matches",matchHistoryService.findAllByUsernameZakladajacy(user));
-//        modelAndView.addObject("matches",matchHistoryService.findAll());
+        modelAndView.addObject("currentUser", user);
+        modelAndView.addObject("matches", matchHistoryService.findAllByUsernameZakladajacy(user));
+
         modelAndView.setViewName("/app/matchHistory");
         return modelAndView;
+    }
+
+    @GetMapping("/matchHistory/completMatch")
+    public ModelAndView CompletMatchHistory(@AuthenticationPrincipal CurrentUser currentUser, @RequestParam("Match") Long matchHistoryId) {
+        User user = currentUser.getUser();
+        MatchHistory matchHistory=matchHistoryService.findAllByUserZakladajacyOrUserPrzyjmujacyAndId(user, matchHistoryId);
+
+        List<Set> sets=new ArrayList<Set>();
+        sets.add(new Set());
+        sets.add(new Set());
+        sets.add(new Set());
+        sets.add(new Set());
+        sets.add(new Set());
+        matchHistory.setSet(sets);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("matchToComplete", matchHistory);
+//        modelAndView.addObject("sets",sets);
+        modelAndView.setViewName("/app/CompleteMatch");
+        return modelAndView;
+
     }
 }

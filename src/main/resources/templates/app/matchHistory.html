@@ -10,9 +10,19 @@
     <table>
 
         <tr th:each="s:${matches}">
-            <td th:text="${s.getSport()}"></td>
-<!--            <td th:text="${s.get}"></td>-->
 
+            <td th:if="${currentUser.getId()==s.getUserPrzyjmujacy().getId()}" th:text="${s.getUserZakladajacy().getUserName()}"></td>
+            <td th:unless="${currentUser.getId()==s.getUserPrzyjmujacy().getId()}" th:text="${s.getUserPrzyjmujacy().getUserName()}"></td>
+            <td th:text="${s.getSport()}"></td>
+            <td th:text="${s.getDateMatchTotal()}"></td>
+            <td  th:switch="${s.getAccepted()}">
+                <span th:case==null th:text="niezaakceptowane"></span>
+                <span th:case==true th:text="zaakcetpwoane"></span>
+                <span th:case==false th:text="odrzucone"></span>
+                <a th:href="@{/app/matchHistory/completMatch(Match=${s.getId()})}">Uzupełnij mecz</a>
+            </td>
+
+<!--            <td th:text="${s.get}"></td>-->
 <!--            <td th:each="a:${s.sports}">-->
 <!--                <p th:text="${a.name}"></p>-->
 <!--                <p th:text="${a.levels.name}"></p>-->

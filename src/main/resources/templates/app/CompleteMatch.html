@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form th:action="@{/app/matchHistory/completMatch}"   th:object="${matchToComplete}" method="post">
+        <div th:each="s:${matchToComplete.set}">
+            <p th:text="${s.pktZakladajacy}"
+<input type="number" th:field="*{s.pktPrzyjmujacy}">
+<input type="number" th:field="*{pktZakladajacy}">
+        <button type="submit">register</button>
+    </form>
+</div>
+
+<!--<table>-->
+<!--<tr>-->
+<!--<td th:each="s : ${sets}">-->
+<!--    <input type="number" th:field="*{set}">-->
+
+
+
+
+<!--</td>-->
+
+<!--</tr>-->
+
+
+<!--</table>-->
+
+
+
+
+
+</body>
+</html>

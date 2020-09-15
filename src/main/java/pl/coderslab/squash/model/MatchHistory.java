@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -38,11 +39,13 @@ public class MatchHistory {
     private User userZakladajacy;
     @ManyToOne
     private User userPrzyjmujacy;
+    @OneToMany
+    private List<Set> set;
 
-    private Integer pktUserZakladajacy;
-    private Integer pktUserPrzyjmujacy;
-    private Integer iloscSetowZakladajacy;
-    private Integer iloscSetowyjmujacy;
+//    private Integer pktUserZakladajacy;
+//    private Integer pktUserPrzyjmujacy;
+//    private Integer iloscSetowZakladajacy;
+//    private Integer iloscSetowyjmujacy;
 
     private Long idWinner;
     @Nullable
@@ -52,8 +55,7 @@ public class MatchHistory {
     public void PrePersist() {
         LocalDate aa = LocalDate.parse(dateMatch);
         dateMatchTotal = LocalDateTime.of(aa, timeMatch);
-        this.accepted=null;
-
+        this.accepted = null;
 
 
     }
