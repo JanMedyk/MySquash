@@ -8,7 +8,9 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Getter
@@ -39,8 +41,8 @@ public class MatchHistory {
     private User userZakladajacy;
     @ManyToOne
     private User userPrzyjmujacy;
-    @OneToMany
-    private List<Set> set;
+    @OneToMany(cascade =CascadeType.PERSIST)
+    private List<Set> set=new ArrayList<>();
 
 //    private Integer pktUserZakladajacy;
 //    private Integer pktUserPrzyjmujacy;
@@ -60,11 +62,11 @@ public class MatchHistory {
 
     }
 
-    @PreUpdate
-    public void PreUpdate() {
-        LocalDate aa = LocalDate.parse(dateMatch);
-        dateMatchTotal = LocalDateTime.of(aa, timeMatch);
-    }
+//    @PreUpdate
+//    public void PreUpdate() {
+//        LocalDate aa = LocalDate.parse(dateMatch);
+//        dateMatchTotal = LocalDateTime.of(aa, timeMatch);
+//    }
 
 
     public MatchHistory(LocalDateTime localDateTime) {

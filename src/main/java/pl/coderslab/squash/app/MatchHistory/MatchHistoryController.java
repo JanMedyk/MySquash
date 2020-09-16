@@ -23,7 +23,9 @@ import pl.coderslab.squash.model.User;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/app")
@@ -119,19 +121,33 @@ public class MatchHistoryController {
     public ModelAndView CompletMatchHistory(@AuthenticationPrincipal CurrentUser currentUser, @RequestParam("Match") Long matchHistoryId) {
         User user = currentUser.getUser();
         MatchHistory matchHistory=matchHistoryService.findAllByUserZakladajacyOrUserPrzyjmujacyAndId(user, matchHistoryId);
+            if(matchHistory.getSet().isEmpty())
+            {
+                ArrayList<Set> sets=new ArrayList<>();
 
-        List<Set> sets=new ArrayList<Set>();
-        sets.add(new Set());
-        sets.add(new Set());
-        sets.add(new Set());
-        sets.add(new Set());
-        sets.add(new Set());
-        matchHistory.setSet(sets);
+                sets.add(new Set());
+                sets.add(new Set());
+                sets.add(new Set());
+                sets.add(new Set());
+                sets.add(new Set());
+                matchHistory.setSet(sets);
+            }
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("matchToComplete", matchHistory);
 //        modelAndView.addObject("sets",sets);
         modelAndView.setViewName("/app/CompleteMatch");
         return modelAndView;
 
+    }
+    @PostMapping("/matchHistory/completMatch")
+    public ModelAndView PostCompletMatchHistory(@AuthenticationPrincipal CurrentUser currentUser,@ModelAttribute("matchToComplete") MatchHistory matchToComplete)
+    {      ModelAndView modelAndView=new ModelAndView();
+        User user = currentUser.getUser();
+        MatchHistory matchHistory=matchHistoryService.findAllByUserZakladajacyOrUserPrzyjmujacyAndId(user, matchToComplete.getId());
+        matchHistoryService.saveMatchHistory(matchToComplete);
+
+        modelAndView.setViewName("/app/home");
+        return modelAndView;
     }
 }
