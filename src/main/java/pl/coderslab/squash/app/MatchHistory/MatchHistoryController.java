@@ -8,24 +8,19 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import pl.coderslab.squash.Sport.repository.SportRepository;
-import pl.coderslab.squash.User.register.validators.PassValidator;
-import pl.coderslab.squash.User.register.validators.UniqueMailValidator;
-import pl.coderslab.squash.User.register.validators.UniqueValidator;
 import pl.coderslab.squash.User.service.CurrentUser;
 import pl.coderslab.squash.User.service.UserService;
-import pl.coderslab.squash.app.MatchHistory.repository.MatchHistoryRepository;
 import pl.coderslab.squash.app.MatchHistory.service.MatchHistoryService;
 import pl.coderslab.squash.app.MatchHistory.validators.UniqueDateValidator;
 import pl.coderslab.squash.model.MatchHistory;
-import pl.coderslab.squash.model.Set;
+import pl.coderslab.squash.model.Sets;
 import pl.coderslab.squash.model.User;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/app")
@@ -121,16 +116,16 @@ public class MatchHistoryController {
     public ModelAndView CompletMatchHistory(@AuthenticationPrincipal CurrentUser currentUser, @RequestParam("Match") Long matchHistoryId) {
         User user = currentUser.getUser();
         MatchHistory matchHistory=matchHistoryService.findAllByUserZakladajacyOrUserPrzyjmujacyAndId(user, matchHistoryId);
-            if(matchHistory.getSet().isEmpty())
+            if(matchHistory.getSets().isEmpty())
             {
-                ArrayList<Set> sets=new ArrayList<>();
+                ArrayList<Sets> sets=new ArrayList<>();
 
-                sets.add(new Set());
-                sets.add(new Set());
-                sets.add(new Set());
-                sets.add(new Set());
-                sets.add(new Set());
-                matchHistory.setSet(sets);
+                sets.add(0,new Sets());
+                sets.add(1,new Sets());
+                sets.add(2,new Sets());
+                sets.add(3,new Sets());
+                sets.add(4,new Sets());
+                matchHistory.setSets(sets);
             }
 
         ModelAndView modelAndView = new ModelAndView();
@@ -145,6 +140,7 @@ public class MatchHistoryController {
     {      ModelAndView modelAndView=new ModelAndView();
         User user = currentUser.getUser();
         MatchHistory matchHistory=matchHistoryService.findAllByUserZakladajacyOrUserPrzyjmujacyAndId(user, matchToComplete.getId());
+
         matchHistoryService.saveMatchHistory(matchToComplete);
 
         modelAndView.setViewName("/app/home");

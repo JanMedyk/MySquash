@@ -6,7 +6,32 @@
     <title>Title</title>
 </head>
 <body>
+<!--<form th:action="@{/app/matchHistory/completMatch}" th:object="${sets}" method="post">-->
+<!--    <table>-->
 
+<!--        <tr>-->
+<!--            <th th:text="${matchToComplete.userZakladajacy.userName}"></th>-->
+<!--            <th th:text="${matchToComplete.userPrzyjmujacy.userName}"></th>-->
+<!--            <th><input type="number" th:field="*{}"></th>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--    <table th:each="JedenSet, stat:${sets}">-->
+<!--&lt;!&ndash;        <tr th:text="Set+${itemStat.index+1}"></tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        <tr th:text="Set+${stats.index+1}">&ndash;&gt;-->
+<!--            <td><input type="number" th:field="*{Sets}""></td>-->
+
+
+<!--        </tr>-->
+
+
+<!--     <td>  <input type="number" th:field="*{set}"></td>-->
+<!--        <td><input type="number" th:field="*{sets.pktZakladajacy}"></td>-->
+<!--        <td><input type="number" th:field="*{sets.pktPrzyjmujacy}"></td>-->
+<!--        <td><input type="number" th:field="*{sets[__${itemStat.index+1}__].pktPrzyjmujacy}"></td>-->
+
+
+<!--    </table>-->
+</form>
     <form th:action="@{/app/matchHistory/completMatch}"   th:object="${matchToComplete}" method="post">
         <table>
 
@@ -16,13 +41,13 @@
 
             </tr>
         </table>
-        <table th:each="set, itemStat:*{set}">
+        <table th:each="sets, itemStat:*{sets}">
 
 
             <tr  th:text="Set +${itemStat.index+1}"></tr>
             <tr>
-            <td><input type="number" th:field="*{set[__${itemStat.index}__].pktPrzyjmujacy}"></td>
-            <td><input type="number" th:field="*{set[__${itemStat.index}__].pktZakladajacy}"></td>
+            <td><input type="number" th:field="*{sets[__${itemStat.index}__].pktPrzyjmujacy}"></td>
+            <td><input type="number" th:field="*{sets[__${itemStat.index}__].pktZakladajacy}"></td>
             </tr>
             <input type="hidden" th:field="*{userPrzyjmujacy}">
             <input type="hidden" th:field="*{userZakladajacy}">
@@ -34,10 +59,6 @@
         <button type="submit">register</button>
 
     </form>
-
-
-
-
 
 
 </body>

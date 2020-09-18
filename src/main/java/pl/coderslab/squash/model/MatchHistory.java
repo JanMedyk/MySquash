@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Getter
@@ -41,8 +40,8 @@ public class MatchHistory {
     private User userZakladajacy;
     @ManyToOne
     private User userPrzyjmujacy;
-    @OneToMany(cascade =CascadeType.PERSIST)
-    private List<Set> set=new ArrayList<>();
+    @OneToMany(cascade =CascadeType.ALL)
+    private List<Sets> sets =new ArrayList<>();
 
 //    private Integer pktUserZakladajacy;
 //    private Integer pktUserPrzyjmujacy;

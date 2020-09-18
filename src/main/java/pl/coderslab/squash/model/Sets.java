@@ -8,12 +8,12 @@ import javax.persistence.*;
 @Getter
 @Setter
 @AllArgsConstructor
-@Table(name = "set")
+@Table(name = "sets")
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode(of = "id")
 
-public class Set {
+public class Sets {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
