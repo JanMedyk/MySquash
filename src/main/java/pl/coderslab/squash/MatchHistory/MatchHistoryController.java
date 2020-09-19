@@ -1,4 +1,4 @@
-package pl.coderslab.squash.app.MatchHistory;
+package pl.coderslab.squash.MatchHistory;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import pl.coderslab.squash.MatchHistory.repository.MatchHistoryRepository;
 import pl.coderslab.squash.Sport.repository.SportRepository;
 import pl.coderslab.squash.User.service.CurrentUser;
 import pl.coderslab.squash.User.service.UserService;
-import pl.coderslab.squash.app.MatchHistory.service.MatchHistoryService;
-import pl.coderslab.squash.app.MatchHistory.validators.UniqueDateValidator;
+import pl.coderslab.squash.MatchHistory.service.MatchHistoryService;
+import pl.coderslab.squash.MatchHistory.validators.UniqueDateValidator;
 import pl.coderslab.squash.model.MatchHistory;
 import pl.coderslab.squash.model.Sets;
 import pl.coderslab.squash.model.User;
@@ -31,6 +32,7 @@ public class MatchHistoryController {
     private final UserService userService;
     private final SportRepository sportRepository;
     private final MatchHistoryService matchHistoryService;
+    private final MatchHistoryRepository matchHistoryRepository;
 
     @InitBinder("matchHistory")
     public void initBinder(WebDataBinder binder) {
@@ -94,7 +96,7 @@ public class MatchHistoryController {
 //            matchHistories.add(matchHistory);
 //            user.setMatchHistories(matchHistories);
 //            userService.saveUser(user);
-            modelAndView.setViewName("/app/home");
+            modelAndView.setViewName("redirect:/app");
             return modelAndView;
 
         }
@@ -106,7 +108,7 @@ public class MatchHistoryController {
         User user = Cuser.getUser();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("currentUser", user);
-        modelAndView.addObject("matches", matchHistoryService.findAllByUsernameZakladajacy(user));
+        modelAndView.addObject("matches", matchHistoryRepository.findAllByUserZakladajacyOrUserPrzyjmujacy(user));
 
         modelAndView.setViewName("/app/matchHistory");
         return modelAndView;

@@ -1,9 +1,9 @@
-package pl.coderslab.squash.app.MatchHistory.validators;
+package pl.coderslab.squash.MatchHistory.validators;
 
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import pl.coderslab.squash.app.MatchHistory.service.MatchHistoryService;
+import pl.coderslab.squash.MatchHistory.service.MatchHistoryService;
 import pl.coderslab.squash.model.MatchHistory;
 import pl.coderslab.squash.model.User;
 

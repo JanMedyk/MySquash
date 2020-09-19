@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table th:each="s:${matches}">
+    <tr>
+        <td th:text="${s.userZakladajacy.userName}"> </td>
+        <td th:text="${s.dateMatchTotal.dayOfMonth+'.'+s.dateMatchTotal.month+'.'+s.dateMatchTotal.year}"> </td>
+        <td th:text="${s.dateMatchTotal.hour+':'+s.dateMatchTotal.minute}"> </td>
+        <td th:text="${s.sport}"> </td>
+        <td> <a onclick="return confirm('Chcesz zaakceptować wyzwanie? ')" th:href="@{/app/challange/waitingChallange/acctept(Match=${s.id},accept=true)}">Przyjmij wyzwanie</a>>
+        <td> <a onclick="return confirm('Chcesz odrzucić wyzwanie? ')" th:href="@{/app/challange/waitingChallange/acctept(Match=${s.id},accept=false)}">Odrzuć wyzwanie</a>>
+
+        </td>
+    </tr>
+</table>
+</body>
+</html>

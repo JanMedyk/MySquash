@@ -17,7 +17,7 @@ import pl.coderslab.squash.Level.service.LevelService;
 import pl.coderslab.squash.Sport.service.SportService;
 import pl.coderslab.squash.User.register.OnRegistrationCompleteEvent;
 import pl.coderslab.squash.User.repository.RoleRepository;
-import pl.coderslab.squash.app.MatchHistory.service.MatchHistoryService;
+import pl.coderslab.squash.MatchHistory.service.MatchHistoryService;
 import pl.coderslab.squash.city.repository.CityRepository;
 import pl.coderslab.squash.model.*;
 import pl.coderslab.squash.User.register.validators.PassValidator;

@@ -1,7 +1,7 @@
-package pl.coderslab.squash.app.MatchHistory.service;
+package pl.coderslab.squash.MatchHistory.service;
 
 import org.springframework.stereotype.Service;
-import pl.coderslab.squash.app.MatchHistory.repository.MatchHistoryRepository;
+import pl.coderslab.squash.MatchHistory.repository.MatchHistoryRepository;
 import pl.coderslab.squash.model.MatchHistory;
 import pl.coderslab.squash.model.User;
 
@@ -39,6 +39,7 @@ public MatchHistory findAllByUserZakladajacyOrUserPrzyjmujacyAndId(User user, Lo
     return matchHistoryRepository.findAllByUserZakladajacyOrUserPrzyjmujacyAndId(user,id);
 
 }
+
 
 
 
