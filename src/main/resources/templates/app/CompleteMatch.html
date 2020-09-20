@@ -6,31 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<!--<form th:action="@{/app/matchHistory/completMatch}" th:object="${sets}" method="post">-->
-<!--    <table>-->
 
-<!--        <tr>-->
-<!--            <th th:text="${matchToComplete.userZakladajacy.userName}"></th>-->
-<!--            <th th:text="${matchToComplete.userPrzyjmujacy.userName}"></th>-->
-<!--            <th><input type="number" th:field="*{}"></th>-->
-<!--        </tr>-->
-<!--    </table>-->
-<!--    <table th:each="JedenSet, stat:${sets}">-->
-<!--&lt;!&ndash;        <tr th:text="Set+${itemStat.index+1}"></tr>&ndash;&gt;-->
-<!--&lt;!&ndash;        <tr th:text="Set+${stats.index+1}">&ndash;&gt;-->
-<!--            <td><input type="number" th:field="*{Sets}""></td>-->
-
-
-<!--        </tr>-->
-
-
-<!--     <td>  <input type="number" th:field="*{set}"></td>-->
-<!--        <td><input type="number" th:field="*{sets.pktZakladajacy}"></td>-->
-<!--        <td><input type="number" th:field="*{sets.pktPrzyjmujacy}"></td>-->
-<!--        <td><input type="number" th:field="*{sets[__${itemStat.index+1}__].pktPrzyjmujacy}"></td>-->
-
-
-<!--    </table>-->
 </form>
     <form th:action="@{/app/matchHistory/completMatch}"   th:object="${matchToComplete}" method="post">
         <table>

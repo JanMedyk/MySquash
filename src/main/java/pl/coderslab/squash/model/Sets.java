@@ -21,4 +21,6 @@ public class Sets {
 
     private Integer pktZakladajacy;
     private Integer pktPrzyjmujacy;
+    @OneToOne
+    private User userWygrany;
 }

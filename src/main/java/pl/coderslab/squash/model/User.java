@@ -61,6 +61,8 @@ public class User {
     private Set<Role> roles;
     @Column
     private boolean enabled;
+    @OneToOne
+    private Image image;
 
     public User(@NotEmpty @Email String mail, @Size(min = 3, max = 20) String name, @Size(min = 3, max = 20) String userName, @Size(min = 3, max = 20) String lastName, String city, int old, @NotEmpty String password, List<Sport> sports) {
         this.mail = mail;

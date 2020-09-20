@@ -24,6 +24,8 @@ public class Sport {
     @ManyToOne(cascade =CascadeType.PERSIST)
     private Level levels;
 //    private LevelEnum level;
+    @OneToOne
+    private Image image;
 
 
     public Sport(SportEnum name, Level levels) {

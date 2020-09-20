@@ -44,6 +44,10 @@
             <option th:value="PingPong" th:text="PingPong"/>
             </select>
             </p>
+            <p>Club <select th:field="*{club}">
+                <option th:each="i:${clubs}" th:value="${i.id}" th:text="${i.name+i.city+i.addres}"></option>
+
+            </select></p>
             <input type="hidden" th:field="*{userZakladajacy}">
             <input type="hidden" th:field="*{userPrzyjmujacy}">
 

@@ -10,24 +10,27 @@
 <!--<td>-->
 <!--    <tr th:text="${user.sports}"></tr>-->
 <!--</td>-->
-<td>
-    <table>
 
-        <tr th:each="s:${users}">
+    <table th:each="s:${users}">
+
+        <tr>
             <td th:text="${s.name}"></td>
+        </tr>
+        <tr>
 
             <td th:each="a:${s.sports}">
-                <p th:text="${a.name}"></p>
+                <p th:switch="${a.name}" th:text="${a.name}"></p>
                 <p th:text="${a.levels.name}"></p>
             </td>
+        </tr>
+        <tr>
 
-<!--            <td th:text="${s.sports}"></td>-->
             <td><a th:href="@{/app/wyzwijEnemy(idEnemy=${s.getId()})}">Wyzwij gracza</a> </td>
 
 
         </tr>
     </table>
-</td>
+
 <!--<table>-->
 <!--&lt;!&ndash;<td th:each="user: ${users}">&ndash;&gt;-->
 <!--&lt;!&ndash;    <tr th:text="${user.id}"/>&ndash;&gt;-->

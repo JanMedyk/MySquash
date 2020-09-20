@@ -20,7 +20,7 @@ public interface MatchHistoryRepository extends JpaRepository<MatchHistory, Long
     List<MatchHistory> findAllByUserZakladajacy(User user);
 
 
-    @Query("select u from MatchHistory  u where u.userZakladajacy=?1 or u.userZakladajacy=?1 and u.id=?2 ")
+    @Query("select u from MatchHistory  u where u.userZakladajacy=?1 or u.userPrzyjmujacy=?1 and u.id=?2 ")
     MatchHistory findAllByUserZakladajacyOrUserPrzyjmujacyAndId(User user, Long id);
 
     @Query("select u from MatchHistory  u where u.userZakladajacy=?1 and u.id=?2")
@@ -29,5 +29,6 @@ public interface MatchHistoryRepository extends JpaRepository<MatchHistory, Long
     List<MatchHistory> findAllByUserPrzyjmujacy(User user);
 MatchHistory findByUserPrzyjmujacyAndId(User user,Long id);
 
+List<MatchHistory> findAllByUserPrzyjmujacyAndAccepted(User user,Boolean aa);
 
 }

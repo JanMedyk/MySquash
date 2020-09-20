@@ -1,6 +1,7 @@
 package pl.coderslab.squash.model;
 
 import lombok.*;
+import org.apache.tomcat.jni.Local;
 import org.springframework.lang.Nullable;
 import pl.coderslab.squash.model.enums.SportEnum;
 
@@ -27,6 +28,7 @@ public class MatchHistory {
     private SportEnum sport;
 
     private LocalDateTime dateMatchTotal;
+    private LocalDateTime dateMatchTotalEnd;
     @Transient
 
     private String dateMatch;
@@ -47,8 +49,8 @@ public class MatchHistory {
 //    private Integer pktUserPrzyjmujacy;
 //    private Integer iloscSetowZakladajacy;
 //    private Integer iloscSetowyjmujacy;
-
-    private Long idWinner;
+@ManyToOne
+    private User UserWinner;
     @Nullable
     private Boolean accepted;
 
@@ -57,6 +59,8 @@ public class MatchHistory {
         LocalDate aa = LocalDate.parse(dateMatch);
         dateMatchTotal = LocalDateTime.of(aa, timeMatch);
         this.accepted = null;
+        dateMatchTotalEnd=dateMatchTotal.plusHours(1);
+
 
 
     }

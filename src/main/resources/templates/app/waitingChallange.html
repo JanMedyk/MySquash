@@ -12,8 +12,8 @@
         <td th:text="${s.dateMatchTotal.dayOfMonth+'.'+s.dateMatchTotal.month+'.'+s.dateMatchTotal.year}"> </td>
         <td th:text="${s.dateMatchTotal.hour+':'+s.dateMatchTotal.minute}"> </td>
         <td th:text="${s.sport}"> </td>
-        <td> <a onclick="return confirm('Chcesz zaakceptować wyzwanie? ')" th:href="@{/app/challange/waitingChallange/acctept(Match=${s.id},accept=true)}">Przyjmij wyzwanie</a>>
-        <td> <a onclick="return confirm('Chcesz odrzucić wyzwanie? ')" th:href="@{/app/challange/waitingChallange/acctept(Match=${s.id},accept=false)}">Odrzuć wyzwanie</a>>
+        <td> <a onclick="return confirm('Chcesz zaakceptować wyzwanie? ')" th:href="@{/app/challange/waitingChallange/acctept(Match=${s.id},accept=true)}">Przyjmij wyzwanie</a>
+        <td> <a onclick="return confirm('Chcesz odrzucić wyzwanie? ')" th:href="@{/app/challange/waitingChallange/acctept(Match=${s.id},accept=false)}">Odrzuć wyzwanie</a>
 
         </td>
     </tr>

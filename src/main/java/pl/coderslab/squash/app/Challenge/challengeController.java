@@ -27,6 +27,11 @@ public class challengeController {
     @RequestMapping("/challange")
     public ModelAndView appChalange(@AuthenticationPrincipal CurrentUser currentUser) {
         ModelAndView modelAndView = new ModelAndView();
+        List< MatchHistory> matchHistory = matchHistoryRepository.findAllByUserPrzyjmujacyAndAccepted(currentUser.getUser(),null);
+        if(matchHistory.size()!=0)
+            modelAndView.addObject("matchHistorySize",matchHistory.size());
+
+
         modelAndView.setViewName("/app/challenge");
         return modelAndView;
 
@@ -46,8 +51,11 @@ public class challengeController {
     public String appDeleteChallange(@AuthenticationPrincipal CurrentUser currentUser, @RequestParam("Match") Long id) {
 
         MatchHistory matchHistory = matchHistoryRepository.findAllByUserZakladajacyAndId(currentUser.getUser(), id);
-
-        matchHistoryRepository.delete(matchHistory);
+if(matchHistory.getAccepted()==false || matchHistory.getAccepted()==null)
+{matchHistoryRepository.delete(matchHistory);}
+else
+{
+    matchHistory.setSets();
         return "redirect:/app";
 
 
@@ -55,7 +63,10 @@ public class challengeController {
 
     @RequestMapping("challange/waitingChallange")
     public ModelAndView appWaitnigChallange(@AuthenticationPrincipal CurrentUser currentUser) {
-       List< MatchHistory> matchHistory = matchHistoryRepository.findAllByUserPrzyjmujacy(currentUser.getUser());
+
+
+
+       List< MatchHistory> matchHistory = matchHistoryRepository.findAllByUserPrzyjmujacyAndAccepted(currentUser.getUser(),null);
        ModelAndView modelAndView=new ModelAndView();
        modelAndView.addObject("matches",matchHistory);
        modelAndView.setViewName("/app/waitingChallange");
