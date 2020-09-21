@@ -49,13 +49,18 @@ public class MatchHistory {
 @ManyToOne
     private User UserWinner;
     @Nullable
-    private Boolean accepted;
+    private Boolean acceptedMatch;
+    @Nullable
+    private Boolean acceptedResult;
     private Boolean completed;
+    @ManyToOne
+    private User whoCompleted;
+
     @PrePersist
         public void PrePersist() {
         LocalDate aa = LocalDate.parse(dateMatch);
         dateMatchTotal = LocalDateTime.of(aa, timeMatch);
-        this.accepted = null;
+        this.acceptedMatch = null;
         dateMatchTotalEnd=dateMatchTotal.plusHours(1);
 
 

@@ -29,6 +29,6 @@ public interface MatchHistoryRepository extends JpaRepository<MatchHistory, Long
     List<MatchHistory> findAllByUserPrzyjmujacy(User user);
 MatchHistory findByUserPrzyjmujacyAndId(User user,Long id);
 
-List<MatchHistory> findAllByUserPrzyjmujacyAndAccepted(User user,Boolean aa);
+List<MatchHistory> findAllByUserPrzyjmujacyAndAcceptedMatch(User user,Boolean aa);
 
 }

@@ -99,6 +99,9 @@ public class MatchHistoryController {
             modelAndView.setViewName("/app/wyzwijEnemy");
             return modelAndView;
         } else {
+            matchHistory.setAcceptedMatch(null);
+            matchHistory.setCompleted(false);
+
             matchHistoryService.saveMatchHistory(matchHistory);
 //            User user=matchHistory.getUserZakladajacy();
 //            List<MatchHistory> matchHistories=user.getMatchHistories();
@@ -178,6 +181,8 @@ public class MatchHistoryController {
         }
 //        MatchHistory matchHistory = matchHistoryService.findAllByUserZakladajacyOrUserPrzyjmujacyAndId(user, matchToComplete.getId());
         matchToComplete.setCompleted(true);
+        matchToComplete.setAcceptedResult(null);
+        matchToComplete.setWhoCompleted(currentUser.getUser());
         matchHistoryService.saveMatchHistory(matchToComplete);
 
         modelAndView.setViewName("/app/home");

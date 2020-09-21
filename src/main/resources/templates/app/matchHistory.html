@@ -10,16 +10,32 @@
     <table>
 
         <tr th:each="s:${matches}">
-<!--<td th:text="${s}"></td>-->
-            <td th:if="${currentUser.getId()==s.getUserPrzyjmujacy().getId()}" th:text="${s.getUserZakladajacy().getUserName()}"></td>
-            <td th:unless="${currentUser.getId()==s.getUserPrzyjmujacy().getId()}" th:text="${s.getUserPrzyjmujacy().getUserName()}"></td>
+            <!--<td th:text="${s}"></td>-->
+            <td th:if="${currentUser.getId()==s.getUserPrzyjmujacy().getId()}"
+                th:text="${s.getUserZakladajacy().getUserName()}"></td>
+            <td th:unless="${currentUser.getId()==s.getUserPrzyjmujacy().getId()}"
+                th:text="${s.getUserPrzyjmujacy().getUserName()}"></td>
             <td th:text="${s.getSport()}"></td>
             <td th:text="${s.getDateMatchTotal()}"></td>
-            <td  th:switch="${s.getAccepted()}">
+            <td th:switch="${s.getAcceptedMatch()}">
                 <span th:case==null th:text="niezaakceptowane"></span>
                 <span th:case==true th:text="zaakcetpwoane"></span>
                 <span th:case==false th:text="odrzucone"></span>
-                <a th:href="@{/app/matchHistory/completMatch(Match=${s.getId()})}">Uzupełnij mecz</a>
+            </td>
+            <td th:switch="${s.completed}">
+
+                <span th:case=true >
+                    <span th:if="${s.whoCompleted==currentUser}">
+                        Czekaj na zaakceptowanie wyniku
+
+                    </span>
+                    <span th:unless="${s.whoCompleted==currentUser}"><a th:href="@{/app/matchHistory/acceptResult(Match=${s.getId()})}">Zaakceptuj wynik </a></span>
+
+                </span>
+                <span th:case=false> <a th:href="@{/app/matchHistory/completMatch(Match=${s.getId()})}">Uzupełnij mecz</a>
+</span>
+
+<!--                <a th:href="@{/app/matchHistory/completMatch(Match=${s.getId()})}">Uzupełnij mecz</a>-->
             </td>
 
 

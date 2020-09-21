@@ -29,7 +29,7 @@ public class challengeController {
     @RequestMapping("/challange")
     public ModelAndView appChalange(@AuthenticationPrincipal CurrentUser currentUser) {
         ModelAndView modelAndView = new ModelAndView();
-        List< MatchHistory> matchHistory = matchHistoryRepository.findAllByUserPrzyjmujacyAndAccepted(currentUser.getUser(),null);
+        List< MatchHistory> matchHistory = matchHistoryRepository.findAllByUserPrzyjmujacyAndAcceptedMatch(currentUser.getUser(),null);
         if(matchHistory.size()!=0)
             modelAndView.addObject("matchHistorySize",matchHistory.size());
 
@@ -53,7 +53,7 @@ public class challengeController {
     public String appDeleteChallange(@AuthenticationPrincipal CurrentUser currentUser, @RequestParam("Match") Long id) {
 
         MatchHistory matchHistory = matchHistoryRepository.findAllByUserZakladajacyAndId(currentUser.getUser(), id);
-        if ( matchHistory.getAccepted() == null || !matchHistory.getAccepted()) {
+        if ( matchHistory.getAcceptedMatch() == null || !matchHistory.getAcceptedMatch()) {
 //            matchHistory.getAccepted() == false ||
             matchHistoryRepository.delete(matchHistory);
         } else {
@@ -76,7 +76,7 @@ public class challengeController {
 
 
 
-       List< MatchHistory> matchHistory = matchHistoryRepository.findAllByUserPrzyjmujacyAndAccepted(currentUser.getUser(),null);
+       List< MatchHistory> matchHistory = matchHistoryRepository.findAllByUserPrzyjmujacyAndAcceptedMatch(currentUser.getUser(),null);
        ModelAndView modelAndView=new ModelAndView();
        modelAndView.addObject("matches",matchHistory);
        modelAndView.setViewName("/app/waitingChallange");
@@ -89,7 +89,9 @@ public class challengeController {
 
     {
         MatchHistory matchHistory=matchHistoryRepository.findByUserPrzyjmujacyAndId(currentUser.getUser(),id);
-        matchHistory.setAccepted(aacept);
+        matchHistory.setAcceptedMatch(aacept);
+        matchHistory.setCompleted(null);
+
         matchHistoryRepository.save(matchHistory);
         return "redirect:/app";
 
