@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+   <tr>
+       <th th:text="${matchToAccept.userZakladajacy.userName}"></th>
+       <th th:text="${matchToAccept.userPrzyjmujacy.userName}"></th>
+       <th>Kto wygrał</th>
+   </tr>
+    <tr th:each="s:${matchToAccept.sets}">
+       <td th:text="${s.pktZakladajacy}"></td>
+       <td th:text="${s.pktPrzyjmujacy}"></td>
+        <td th:text="${s.userWygrany.userName}"></td>
+    </tr>
+    <tr>
+        <td colspan="3" th:text="${wygraneUserZakladajacy+':'+wygraneUserPrzyjmujacy}"></td>
+
+    </tr>
+
+
+</table>
+
+</body>
+</html>

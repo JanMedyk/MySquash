@@ -20,7 +20,6 @@ import pl.coderslab.squash.MatchHistory.validators.UniqueDateValidator;
 import pl.coderslab.squash.model.MatchHistory;
 import pl.coderslab.squash.model.Sets;
 import pl.coderslab.squash.model.User;
-import pl.coderslab.squash.model.enums.SportEnum;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -159,7 +158,7 @@ public class MatchHistoryController {
         List<Sets> sets = matchToComplete.getSets();
         sets.removeIf(e -> e.getPktZakladajacy() == null);
         sets.removeIf(e -> e.getPktPrzyjmujacy() == null);
-        sets.removeIf(e -> e.getPktPrzyjmujacy() == null);
+
 
         sets.stream().forEach(e ->
         {
@@ -188,4 +187,31 @@ public class MatchHistoryController {
         modelAndView.setViewName("/app/home");
         return modelAndView;
     }
+ @RequestMapping("/matchHistory/acceptResult")
+    public ModelAndView getAcceptResult(@AuthenticationPrincipal CurrentUser currentUser, @RequestParam("Match") Long id)
+ {  AtomicReference<Integer> wygraneSetyUserZakladajacy= new AtomicReference<>(0);
+  AtomicReference<Integer> wygraneSetyUserPrzyjmujacy= new AtomicReference<>(0);
+
+     MatchHistory matchToAccept=matchHistoryRepository.findAllByUserZakladajacyOrUserPrzyjmujacyAndId(currentUser.getUser(),id);
+     ModelAndView modelAndView=new ModelAndView();
+     List<Sets> list=matchToAccept.getSets();
+     list.forEach(e->
+             {
+                if(e.getUserWygrany()==matchToAccept.getUserPrzyjmujacy())
+                    wygraneSetyUserPrzyjmujacy.getAndSet(wygraneSetyUserPrzyjmujacy.get() + 1);
+                else
+                    wygraneSetyUserZakladajacy.getAndSet(wygraneSetyUserZakladajacy.get() + 1);
+             }
+
+
+
+             );
+     modelAndView.addObject("wygraneUserPrzyjmujacy",wygraneSetyUserPrzyjmujacy);
+     modelAndView.addObject("wygraneUserZakladajacy",wygraneSetyUserZakladajacy);
+     modelAndView.addObject("matchToAccept",matchToAccept);
+     modelAndView.setViewName("app/acceptMatch");
+     return modelAndView;
+
+
+ }
 }
