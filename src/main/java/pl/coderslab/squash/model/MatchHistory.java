@@ -45,17 +45,14 @@ public class MatchHistory {
     @OneToMany(cascade =CascadeType.ALL)
     private List<Sets> sets =new ArrayList<>();
 
-//    private Integer pktUserZakladajacy;
-//    private Integer pktUserPrzyjmujacy;
-//    private Integer iloscSetowZakladajacy;
-//    private Integer iloscSetowyjmujacy;
+
 @ManyToOne
     private User UserWinner;
     @Nullable
     private Boolean accepted;
-
+    private Boolean completed;
     @PrePersist
-    public void PrePersist() {
+        public void PrePersist() {
         LocalDate aa = LocalDate.parse(dateMatch);
         dateMatchTotal = LocalDateTime.of(aa, timeMatch);
         this.accepted = null;

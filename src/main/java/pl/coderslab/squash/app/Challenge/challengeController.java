@@ -12,7 +12,9 @@ import pl.coderslab.squash.User.service.UserService;
 import pl.coderslab.squash.MatchHistory.repository.MatchHistoryRepository;
 import pl.coderslab.squash.MatchHistory.service.MatchHistoryService;
 import pl.coderslab.squash.model.MatchHistory;
+import pl.coderslab.squash.model.Sets;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -51,16 +53,24 @@ public class challengeController {
     public String appDeleteChallange(@AuthenticationPrincipal CurrentUser currentUser, @RequestParam("Match") Long id) {
 
         MatchHistory matchHistory = matchHistoryRepository.findAllByUserZakladajacyAndId(currentUser.getUser(), id);
-if(matchHistory.getAccepted()==false || matchHistory.getAccepted()==null)
-{matchHistoryRepository.delete(matchHistory);}
-else
-{
-    matchHistory.setSets();
+        if ( matchHistory.getAccepted() == null || !matchHistory.getAccepted()) {
+//            matchHistory.getAccepted() == false ||
+            matchHistoryRepository.delete(matchHistory);
+        } else {
+            List<Sets> sets=new ArrayList<>();
+            sets.add(new Sets(0,11,matchHistory.getUserPrzyjmujacy()));
+            sets.add(new Sets(0,11,matchHistory.getUserPrzyjmujacy()));
+            sets.add(new Sets(0,11,matchHistory.getUserPrzyjmujacy()));
+            matchHistory.setSets(sets);
+            matchHistory.setUserWinner(matchHistory.getUserPrzyjmujacy());
+        matchHistoryRepository.save(matchHistory);
+
+
+
+        }
         return "redirect:/app";
 
-
     }
-
     @RequestMapping("challange/waitingChallange")
     public ModelAndView appWaitnigChallange(@AuthenticationPrincipal CurrentUser currentUser) {
 

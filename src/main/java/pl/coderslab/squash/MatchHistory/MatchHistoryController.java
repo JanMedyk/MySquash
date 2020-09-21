@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.coderslab.squash.Club.repository.ClubRepository;
 import pl.coderslab.squash.MatchHistory.repository.MatchHistoryRepository;
+import pl.coderslab.squash.MatchHistory.validators.UniqueDateEnemyValidator;
 import pl.coderslab.squash.Sport.repository.SportRepository;
 import pl.coderslab.squash.User.service.CurrentUser;
 import pl.coderslab.squash.User.service.UserService;
@@ -42,6 +43,7 @@ public class MatchHistoryController {
     public void initBinder(WebDataBinder binder) {
 
         binder.setValidator(new UniqueDateValidator(matchHistoryService));
+        binder.setValidator(new UniqueDateEnemyValidator(matchHistoryService));
     }
 
     @RequestMapping("/searchEnemy")
@@ -75,7 +77,7 @@ public class MatchHistoryController {
         modelAndView.addObject("enemy", enemyUser);
         modelAndView.addObject("you", you);
         modelAndView.addObject("matchHistory", matchHistory);
-        modelAndView.addObject("clubs",clubRepository.findAll());
+        modelAndView.addObject("clubs", clubRepository.findAll());
 
 //            modelAndView.addObject("sports", SportEnum);
 
@@ -93,6 +95,7 @@ public class MatchHistoryController {
             modelAndView.addObject("matchHistory", matchHistory);
             modelAndView.addObject("enemy", matchHistory.getUserPrzyjmujacy());
             modelAndView.addObject("you", matchHistory.getUserZakladajacy());
+            modelAndView.addObject("clubs", clubRepository.findAll());
             modelAndView.setViewName("/app/wyzwijEnemy");
             return modelAndView;
         } else {
@@ -153,6 +156,8 @@ public class MatchHistoryController {
         List<Sets> sets = matchToComplete.getSets();
         sets.removeIf(e -> e.getPktZakladajacy() == null);
         sets.removeIf(e -> e.getPktPrzyjmujacy() == null);
+        sets.removeIf(e -> e.getPktPrzyjmujacy() == null);
+
         sets.stream().forEach(e ->
         {
             if (e.getPktPrzyjmujacy() > e.getPktZakladajacy()) {
@@ -166,16 +171,13 @@ public class MatchHistoryController {
 
         });
         matchToComplete.setSets(sets);
-        if(setsWinsUserPrzyjmujacy.get() > setsWinsUserZakladajacy.get())
-        {
+        if (setsWinsUserPrzyjmujacy.get() > setsWinsUserZakladajacy.get()) {
             matchToComplete.setUserWinner(matchToComplete.getUserPrzyjmujacy());
-        }
-        else
-        {
+        } else {
             matchToComplete.setUserWinner(matchToComplete.getUserZakladajacy());
         }
 //        MatchHistory matchHistory = matchHistoryService.findAllByUserZakladajacyOrUserPrzyjmujacyAndId(user, matchToComplete.getId());
-
+        matchToComplete.setCompleted(true);
         matchHistoryService.saveMatchHistory(matchToComplete);
 
         modelAndView.setViewName("/app/home");

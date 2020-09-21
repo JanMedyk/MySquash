@@ -11,10 +11,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class UniqueDateValidator implements Validator {
+public class UniqueDateEnemyValidator implements Validator {
     private final MatchHistoryService matchHistoryService;
 
-    public UniqueDateValidator(MatchHistoryService matchHistoryService) {
+    public UniqueDateEnemyValidator(MatchHistoryService matchHistoryService) {
         this.matchHistoryService = matchHistoryService;
     }
 
@@ -29,13 +29,13 @@ public class UniqueDateValidator implements Validator {
         MatchHistory matchHistory= (MatchHistory) o;
         LocalDate localDate=LocalDate.parse(matchHistory.getDateMatch());
         LocalTime localTime=matchHistory.getTimeMatch();
-        User user=matchHistory.getUserZakladajacy();
+        User user=matchHistory.getUserPrzyjmujacy();
 
 
 
         if(matchHistoryService.findByDateMatchTotalAndUserPrzyjmujacy((LocalDateTime.of(localDate,localTime)),user)!=null)
         {
-            errors.rejectValue("timeMatch","matchHistory.timeMatch","masz juz inne spotkanie ");
+            errors.rejectValue("timeMatch","matchHistory.timeMatch","Przeciwnik ma wtedy inne spotkanie ");
         }
 
 

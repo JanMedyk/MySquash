@@ -7,6 +7,6 @@
 </head>
 <body>
 <a th:href="@{/app/challange/yoursChallange}" >Twoje wyzwania</a>
-<a th:href="@{/app/challange/waitingChallange}"> Wyzwania przeciwko Tobie <span th:text="${matchHistorySize}"></span>oczekujace </a>
+<a th:href="@{/app/challange/waitingChallange}"> Wyzwania przeciwko Tobie <span th:text="${matchHistorySize}+oczekujace"></span> </a>
 </body>
 </html>

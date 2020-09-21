@@ -23,4 +23,13 @@ public class Sets {
     private Integer pktPrzyjmujacy;
     @OneToOne
     private User userWygrany;
+    private Boolean WynikZaakceptowany;
+
+    public Sets(Integer pktZakladajacy, Integer pktPrzyjmujacy, User userWygrany) {
+        this.pktPrzyjmujacy=pktPrzyjmujacy;
+        this.pktZakladajacy=pktZakladajacy;
+        this.userWygrany=userWygrany;
+        this.WynikZaakceptowany=false;
+
+    }
 }

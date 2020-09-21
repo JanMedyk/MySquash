@@ -14,8 +14,8 @@
         <td th:text="${s.sport}"> </td>
         <td th:text="${s.accepted}"></td>
     <td >
-        <span th:if="${s.accepted=='true'}" ><a onclick="return confirm('Are u sure you want to cancel this Match? Match is confired so Match will ended walkower')" th:href="@{/app/challange/yourChallange/deleteChallange(Match=${s.id})}">Odwołaj</a></span>
-        <span th:unless="${s.accepted=='true'}"><a onclick="return confirm('Are u sure you want to cancel this Match? ')" th:href="@{/app/challange/yourChallange/deleteChallange(Match=${s.id})}">Odwołaj</a></span>
+        <span th:if="${s.accepted==true}" ><a onclick="return confirm('Are u sure you want to cancel this Match? Match is confired so Match will ended walkower')" th:href="@{/app/challange/yourChallange/deleteChallange(Match=${s.id})}">Odwołaj</a></span>
+        <span th:unless="${s.accepted==true}"><a onclick="return confirm('Are u sure you want to cancel this Match? ')" th:href="@{/app/challange/yourChallange/deleteChallange(Match=${s.id})}">Odwołaj</a></span>
          </td>
     </tr>
 </table>
