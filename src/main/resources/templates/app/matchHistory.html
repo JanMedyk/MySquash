@@ -32,7 +32,10 @@
                     <span th:unless="${s.whoCompleted==currentUser}"><a th:href="@{/app/matchHistory/acceptResult(Match=${s.getId()})}">Zaakceptuj wynik </a></span>
 
                 </span>
-                <span th:case=false> <a th:href="@{/app/matchHistory/completMatch(Match=${s.getId()})}">Uzupełnij mecz</a>
+                <span th:case=false>
+                    <span th:if="${s.getAcceptedMatch()==true}">
+                        <a th:href="@{/app/matchHistory/completMatch(Match=${s.getId()})}">Uzupełnij mecz</a>
+                    </span>
 </span>
 
 <!--                <a th:href="@{/app/matchHistory/completMatch(Match=${s.getId()})}">Uzupełnij mecz</a>-->

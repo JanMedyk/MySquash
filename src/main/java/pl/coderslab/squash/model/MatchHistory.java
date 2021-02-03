@@ -42,12 +42,14 @@ public class MatchHistory {
     private User userZakladajacy;
     @ManyToOne
     private User userPrzyjmujacy;
-    @OneToMany(cascade =CascadeType.ALL)
-    private List<Sets> sets =new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Sets> sets = new ArrayList<>();
 
 
-@ManyToOne
+    @ManyToOne
     private User UserWinner;
+    @ManyToOne
+    private User UserLoser;
     @Nullable
     private Boolean acceptedMatch;
     @Nullable
@@ -57,12 +59,11 @@ public class MatchHistory {
     private User whoCompleted;
 
     @PrePersist
-        public void PrePersist() {
+    public void PrePersist() {
         LocalDate aa = LocalDate.parse(dateMatch);
         dateMatchTotal = LocalDateTime.of(aa, timeMatch);
         this.acceptedMatch = null;
-        dateMatchTotalEnd=dateMatchTotal.plusHours(1);
-
+        dateMatchTotalEnd = dateMatchTotal.plusHours(1);
 
 
     }

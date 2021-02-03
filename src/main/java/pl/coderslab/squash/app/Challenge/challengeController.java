@@ -90,7 +90,7 @@ public class challengeController {
     {
         MatchHistory matchHistory=matchHistoryRepository.findByUserPrzyjmujacyAndId(currentUser.getUser(),id);
         matchHistory.setAcceptedMatch(aacept);
-        matchHistory.setCompleted(null);
+        matchHistory.setCompleted(false);
 
         matchHistoryRepository.save(matchHistory);
         return "redirect:/app";

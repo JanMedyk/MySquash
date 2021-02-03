@@ -12,10 +12,10 @@
         <td th:text="${s.dateMatchTotal.dayOfMonth+'.'+s.dateMatchTotal.month+'.'+s.dateMatchTotal.year}"> </td>
         <td th:text="${s.dateMatchTotal.hour+':'+s.dateMatchTotal.minute}"> </td>
         <td th:text="${s.sport}"> </td>
-        <td th:text="${s.accepted}"></td>
+        <td th:text="${s.acceptedMatch}"></td>
     <td >
-        <span th:if="${s.accepted==true}" ><a onclick="return confirm('Are u sure you want to cancel this Match? Match is confired so Match will ended walkower')" th:href="@{/app/challange/yourChallange/deleteChallange(Match=${s.id})}">Odwołaj</a></span>
-        <span th:unless="${s.accepted==true}"><a onclick="return confirm('Are u sure you want to cancel this Match? ')" th:href="@{/app/challange/yourChallange/deleteChallange(Match=${s.id})}">Odwołaj</a></span>
+        <span th:if="${s.acceptedMatch==true}" ><a onclick="return confirm('Are u sure you want to cancel this Match? Match is confired so Match will ended walkower')" th:href="@{/app/challange/yourChallange/deleteChallange(Match=${s.id})}">Odwołaj</a></span>
+        <span th:unless="${s.acceptedMatch==true}"><a onclick="return confirm('Are u sure you want to cancel this Match? ')" th:href="@{/app/challange/yourChallange/deleteChallange(Match=${s.id})}">Odwołaj</a></span>
          </td>
     </tr>
 </table>

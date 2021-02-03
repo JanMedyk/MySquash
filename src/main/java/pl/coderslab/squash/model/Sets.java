@@ -23,6 +23,8 @@ public class Sets {
     private Integer pktPrzyjmujacy;
     @OneToOne
     private User userWygrany;
+    @OneToOne
+    private User userPrzegrany;
     private Boolean WynikZaakceptowany;
 
     public Sets(Integer pktZakladajacy, Integer pktPrzyjmujacy, User userWygrany) {

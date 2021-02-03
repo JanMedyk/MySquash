@@ -7,8 +7,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import org.springframework.web.servlet.view.RedirectView;
 import pl.coderslab.squash.Club.repository.ClubRepository;
 import pl.coderslab.squash.MatchHistory.repository.MatchHistoryRepository;
 import pl.coderslab.squash.MatchHistory.validators.UniqueDateEnemyValidator;
@@ -22,6 +24,7 @@ import pl.coderslab.squash.model.Sets;
 import pl.coderslab.squash.model.User;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -101,6 +104,7 @@ public class MatchHistoryController {
             matchHistory.setAcceptedMatch(null);
             matchHistory.setCompleted(false);
 
+
             matchHistoryService.saveMatchHistory(matchHistory);
 //            User user=matchHistory.getUserZakladajacy();
 //            List<MatchHistory> matchHistories=user.getMatchHistories();
@@ -119,7 +123,7 @@ public class MatchHistoryController {
         User user = Cuser.getUser();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("currentUser", user);
-        modelAndView.addObject("matches", matchHistoryRepository.findAllByUserZakladajacyOrUserPrzyjmujacy(user));
+        modelAndView.addObject("matches", matchHistoryRepository.findAllByUserZakladajacyOrUserPrzyjmujacyAndDateMatch(user, LocalDateTime.now()));
 
         modelAndView.setViewName("/app/matchHistory");
         return modelAndView;
@@ -160,23 +164,28 @@ public class MatchHistoryController {
         sets.removeIf(e -> e.getPktPrzyjmujacy() == null);
 
 
-        sets.stream().forEach(e ->
+        sets.forEach(e ->
         {
             if (e.getPktPrzyjmujacy() > e.getPktZakladajacy()) {
                 e.setUserWygrany(matchToComplete.getUserPrzyjmujacy());
                 setsWinsUserPrzyjmujacy.getAndSet(setsWinsUserPrzyjmujacy.get() + 1);
+                e.setUserPrzegrany(matchToComplete.getUserZakladajacy());
+
 
 
             } else
                 e.setUserWygrany(matchToComplete.getUserZakladajacy());
             setsWinsUserZakladajacy.getAndSet(setsWinsUserZakladajacy.get() + 1);
+            e.setUserPrzegrany(matchToComplete.getUserPrzyjmujacy());
 
         });
         matchToComplete.setSets(sets);
         if (setsWinsUserPrzyjmujacy.get() > setsWinsUserZakladajacy.get()) {
             matchToComplete.setUserWinner(matchToComplete.getUserPrzyjmujacy());
+            matchToComplete.setUserLoser(matchToComplete.getUserZakladajacy());
         } else {
             matchToComplete.setUserWinner(matchToComplete.getUserZakladajacy());
+            matchToComplete.setUserLoser(matchToComplete.getUserPrzyjmujacy());
         }
 //        MatchHistory matchHistory = matchHistoryService.findAllByUserZakladajacyOrUserPrzyjmujacyAndId(user, matchToComplete.getId());
         matchToComplete.setCompleted(true);
@@ -187,31 +196,40 @@ public class MatchHistoryController {
         modelAndView.setViewName("/app/home");
         return modelAndView;
     }
- @RequestMapping("/matchHistory/acceptResult")
-    public ModelAndView getAcceptResult(@AuthenticationPrincipal CurrentUser currentUser, @RequestParam("Match") Long id)
- {  AtomicReference<Integer> wygraneSetyUserZakladajacy= new AtomicReference<>(0);
-  AtomicReference<Integer> wygraneSetyUserPrzyjmujacy= new AtomicReference<>(0);
 
-     MatchHistory matchToAccept=matchHistoryRepository.findAllByUserZakladajacyOrUserPrzyjmujacyAndId(currentUser.getUser(),id);
-     ModelAndView modelAndView=new ModelAndView();
-     List<Sets> list=matchToAccept.getSets();
-     list.forEach(e->
-             {
-                if(e.getUserWygrany()==matchToAccept.getUserPrzyjmujacy())
-                    wygraneSetyUserPrzyjmujacy.getAndSet(wygraneSetyUserPrzyjmujacy.get() + 1);
-                else
-                    wygraneSetyUserZakladajacy.getAndSet(wygraneSetyUserZakladajacy.get() + 1);
-             }
+    @RequestMapping("/matchHistory/acceptResult")
+    public ModelAndView getAcceptResult(@AuthenticationPrincipal CurrentUser currentUser, @RequestParam("Match") Long id) {
+        AtomicReference<Integer> wygraneSetyUserZakladajacy = new AtomicReference<>(0);
+        AtomicReference<Integer> wygraneSetyUserPrzyjmujacy = new AtomicReference<>(0);
 
-
-
-             );
-     modelAndView.addObject("wygraneUserPrzyjmujacy",wygraneSetyUserPrzyjmujacy);
-     modelAndView.addObject("wygraneUserZakladajacy",wygraneSetyUserZakladajacy);
-     modelAndView.addObject("matchToAccept",matchToAccept);
-     modelAndView.setViewName("app/acceptMatch");
-     return modelAndView;
+        MatchHistory matchToAccept = matchHistoryRepository.findAllByUserZakladajacyOrUserPrzyjmujacyAndId(currentUser.getUser(), id);
+        ModelAndView modelAndView = new ModelAndView();
+        List<Sets> list = matchToAccept.getSets();
+        list.forEach(e ->
+                {
+                    if (e.getUserWygrany() == matchToAccept.getUserPrzyjmujacy())
+                        wygraneSetyUserPrzyjmujacy.getAndSet(wygraneSetyUserPrzyjmujacy.get() + 1);
+                    else
+                        wygraneSetyUserZakladajacy.getAndSet(wygraneSetyUserZakladajacy.get() + 1);
+                }
 
 
- }
+        );
+        modelAndView.addObject("wygraneUserPrzyjmujacy", wygraneSetyUserPrzyjmujacy);
+        modelAndView.addObject("wygraneUserZakladajacy", wygraneSetyUserZakladajacy);
+        modelAndView.addObject("matchToAccept", matchToAccept);
+        modelAndView.setViewName("app/acceptMatch");
+        return modelAndView;
+
+
+    }
+
+    @RequestMapping("/matchHistory/acceptResult/accept")
+    public RedirectView acceptMatch(@AuthenticationPrincipal CurrentUser currentUser, @RequestParam("Match") Long id) {
+        MatchHistory matchToAccept = matchHistoryRepository.findAllByUserZakladajacyOrUserPrzyjmujacyAndId(currentUser.getUser(), id);
+        matchToAccept.setAcceptedResult(true);
+        matchHistoryService.saveMatchHistory(matchToAccept);
+        return new RedirectView("/app");
+
+    }
 }
